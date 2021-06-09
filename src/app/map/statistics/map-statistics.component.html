@@ -1,0 +1,47 @@
+<mat-card class="btc-map-statistics bg-light">
+
+  <mat-card-header>
+    <button mat-icon-button mat-card-avatar
+            (click)="toggleExpansion()"
+            class="btc-expansion-toggle d-flex justify-content-center align-items-center"
+            [ngClass]="{'btc-collapsed':this.collapsed}">
+      <mat-icon class="material-icons-outlined">expand_circle_down</mat-icon>
+    </button>
+    <mat-card-title>BTC Nations</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content [ngClass]="{'btc-collapsed':this.collapsed}">
+
+    <div class="w-100 d-flex justify-content-center" *ngIf="dataSource.loading$ | async">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Nation</mat-header-cell>
+        <mat-cell *matCellDef="let nation">{{nation.name}}</mat-cell>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let nation">
+          <mat-icon *ngIf="nation.status === 'legal'"
+                    color="accent">
+            check
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let nation; columns: displayedColumns"></mat-row>
+
+    </mat-table>
+
+    <!--mat-paginator [length]="blogPostCount"
+                   [pageSize]="defaultPageSize"
+                   [pageSizeOptions]="[3, 5, 10]">
+    </mat-paginator-->
+
+  </mat-card-content>
+</mat-card>

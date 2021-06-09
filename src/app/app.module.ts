@@ -8,14 +8,22 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatButtonModule} from '@angular/material/button';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {LeafletModule} from '@asymmetrik/ngx-leaflet';
-import { MapComponent } from './map/map.component';
+import {MapComponent} from './map/map.component';
+import {MatCardModule} from '@angular/material/card';
+import {MapStatisticsComponent} from './map/statistics/map-statistics.component';
+import {MatTableModule} from '@angular/material/table';
+import {MapChartComponent} from './map/chart/map-chart.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {HttpClientModule} from '@angular/common/http';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    MapComponent
+    MapComponent,
+    MapStatisticsComponent,
+    MapChartComponent
   ],
   imports: [
     BrowserModule,
@@ -23,8 +31,12 @@ import { MapComponent } from './map/map.component';
     BrowserAnimationsModule,
     MatIconModule,
     MatButtonModule,
+    MatCardModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
     NgbModule,
-    LeafletModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
