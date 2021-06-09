@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg bg-light fixed-top mat-elevation-z2 px-2">
+
+  <a class="navbar-brand text-dark" routerLink="/home">
+    <img [height]="28" [width]="28" src="../../assets/images/bitcoin.png"/>itcoination
+  </a>
+
+  <button #navbarToggleButton
+          mat-icon-button
+          class="navbar-toggler collapsed"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          (click)="collapsed = !collapsed"
+          [attr.aria-expanded]="!collapsed">
+    <span class="icon-bar top-bar"></span>
+    <span class="icon-bar middle-bar"></span>
+    <span class="icon-bar bottom-bar"></span>
+  </button>
+
+  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <a *ngFor="let navigationEntry of navigationEntries"
+         class="nav-item p-2 text-start text-dark"
+         mat-flat-button
+         [ngClass]="{'active':isActivated(navigationEntry)}"
+         [routerLink]="navigationEntry.path">
+        <mat-icon class="material-icons-outlined">{{navigationEntry.icon}}</mat-icon>
+        {{navigationEntry.name}}
+      </a>
+    </ul>
+  </div>
+
+</nav>

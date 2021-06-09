@@ -1,0 +1,131 @@
+.navbar {
+
+  .nav-item {
+    padding: 0px 5px !important;
+
+    &.active {
+      background-color: #F0F0F0;
+    }
+
+    &:not(.active) {
+      background-color: transparent;
+    }
+  }
+
+  .navbar-brand {
+    img {
+      border-radius: 5px;
+      vertical-align: bottom;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .animate {
+      animation-duration: 0.3s;
+      -webkit-animation-duration: 0.3s;
+      animation-fill-mode: both;
+      -webkit-animation-fill-mode: both;
+    }
+  }
+
+  @keyframes slideIn {
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0rem);
+      opacity: 1;
+    }
+    0% {
+      transform: translateY(1rem);
+      opacity: 0;
+    }
+  }
+
+  @-webkit-keyframes slideIn {
+    0% {
+      -webkit-opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+      -webkit-opacity: 1;
+    }
+    0% {
+      -webkit-transform: translateY(1rem);
+      -webkit-opacity: 0;
+    }
+  }
+
+  .slideIn {
+    -webkit-animation-name: slideIn;
+    animation-name: slideIn;
+  }
+
+  .navbar-toggler {
+    border: none;
+    background: transparent !important;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    ::ng-deep {
+      .mat-button-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .mat-button-ripple {
+        display: none;
+      }
+    }
+  }
+
+  .navbar-toggler:focus {
+    outline: none;
+    background: transparent !important;
+  }
+
+  .navbar-toggler .icon-bar {
+    background-color: black;
+    transform: rotate(0deg) translate(0px, 0px);
+    transition: ease all .2s;
+    display: block;
+    width: 22px;
+    height: 2px;
+  }
+
+  .navbar-toggler .icon-bar + .icon-bar {
+    margin-top: 5px;
+  }
+
+  .navbar-toggler[aria-expanded="true"] .top-bar {
+    transform: rotate(45deg);
+    transform-origin: 10% 10%;
+  }
+
+  .navbar-toggler[aria-expanded="true"] .middle-bar {
+    opacity: 0;
+  }
+
+  .navbar-toggler[aria-expanded="true"] .bottom-bar {
+    transform: rotate(-45deg);
+    transform-origin: 0% 50%;
+  }
+
+  .navbar-toggler[aria-expanded="false"] .top-bar {
+    transform: rotate(0);
+    transform-origin: 10% 10%;
+  }
+
+  .navbar-toggler[aria-expanded="false"] .middle-bar {
+    opacity: 1;
+  }
+
+  .navbar-toggler[aria-expanded="false"] .bottom-bar {
+    transform: rotate(0);
+    transform-origin: 0% 50%;
+  }
+}
