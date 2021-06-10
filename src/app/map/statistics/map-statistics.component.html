@@ -1,10 +1,10 @@
-<mat-card class="btc-map-statistics bg-light">
+<mat-card class="btc-map-statistics bg-light"
+          [ngClass]="{'btc-collapsed':this.collapsed}">
 
   <mat-card-header>
     <button mat-icon-button mat-card-avatar
             (click)="toggleExpansion()"
-            class="btc-expansion-toggle d-flex justify-content-center align-items-center"
-            [ngClass]="{'btc-collapsed':this.collapsed}">
+            class="btc-expansion-toggle d-flex justify-content-center align-items-center">
       <mat-icon class="material-icons-outlined">expand_circle_down</mat-icon>
     </button>
     <mat-card-title>BTC Nations</mat-card-title>

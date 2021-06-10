@@ -10,8 +10,7 @@ import {MapPolygon} from '@amcharts/amcharts4/maps';
 
 @Component({
   selector: 'btc-map-chart',
-  templateUrl: './map-chart.component.html',
-  styleUrls: ['./map-chart.component.scss']
+  templateUrl: './map-chart.component.html'
 })
 export class MapChartComponent implements AfterViewInit {
 

@@ -73,10 +73,12 @@ $bitcoination-theme: mat-light-theme((
 
 html, body {
   height: 100%;
+  min-height: -webkit-fill-available;
 }
 
 body {
-  height: 100vh;
+  height: 100%;
+  min-height: -webkit-fill-available;
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }

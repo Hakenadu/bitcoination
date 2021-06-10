@@ -1,21 +1,22 @@
 .btc-map-statistics {
+  // position: absolute;
+  // bottom: 0;
+  // left: 0;
+  // right: 0;
+
   border-top: 2px solid gray;
   border-radius: 0;
   padding: 0;
-
-  .btc-expansion-toggle {
-    transition: transform 300ms ease;
-
-    &.btc-collapsed {
-      transform: rotate(180deg);
-    }
-  }
 
   .mat-card-header {
     display: flex !important;
     flex-direction: row !important;
     align-items: center;
     border-bottom: 1px solid gray;
+
+    .btc-expansion-toggle {
+      transition: transform 300ms ease;
+    }
 
     .mat-card-title {
       margin-bottom: 0;
@@ -27,10 +28,6 @@
 
     transition: max-height ease-in-out 300ms;
     max-height: 40vh;
-
-    &.btc-collapsed {
-      max-height: 0vh;
-    }
 
     .mat-table {
       background-color: inherit;
@@ -59,6 +56,16 @@
       .mat-paginator-range-label {
         margin-right: 12px;
       }
+    }
+  }
+
+  &.btc-collapsed {
+    .btc-expansion-toggle {
+      transform: rotate(180deg);
+    }
+
+    .mat-card-content {
+      max-height: 0vh;
     }
   }
 }
