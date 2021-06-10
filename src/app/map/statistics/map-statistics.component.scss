@@ -38,6 +38,10 @@
       .mat-header-row {
         min-height: unset;
         background-color: lightgray;
+
+        .mat-header-cell {
+          padding: 0.5em;
+        }
       }
 
       .mat-row {

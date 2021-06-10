@@ -16,34 +16,37 @@
       <mat-spinner></mat-spinner>
     </div>
 
-    <ng-container *ngIf="nationsCount!==undefined && nationsCount>0">
-      <mat-table [dataSource]="dataSource">
+    <mat-table [dataSource]="dataSource">
 
-        <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef mat-sort-header>Nation</mat-header-cell>
-          <mat-cell *matCellDef="let nation">{{nation.name}}</mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Nation</mat-header-cell>
+        <mat-cell *matCellDef="let nation">{{nation.country_code.name}}</mat-cell>
+      </ng-container>
 
-        <ng-container matColumnDef="status">
-          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-          <mat-cell *matCellDef="let nation">
-            <mat-icon *ngIf="nation.status === 'legal'"
-                      color="accent">
-              check
-            </mat-icon>
-          </mat-cell>
-        </ng-container>
+      <ng-container matColumnDef="code">
+        <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+        <mat-cell *matCellDef="let nation">{{nation.country_code.code}}</mat-cell>
+      </ng-container>
 
-        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-        <mat-row *matRowDef="let nation; columns: displayedColumns"></mat-row>
+      <ng-container matColumnDef="status">
+        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+        <mat-cell *matCellDef="let nation">
+          <mat-icon *ngIf="nation.status === 'legal'"
+                    color="accent">
+            check
+          </mat-icon>
+        </mat-cell>
+      </ng-container>
 
-      </mat-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let nation; columns: displayedColumns"></mat-row>
 
-      <mat-paginator [length]="nationsCount"
-                     [pageSize]="defaultPageSize"
-                     [pageSizeOptions]="[3, 5, 10]">
-      </mat-paginator>
-    </ng-container>
+    </mat-table>
+
+    <mat-paginator [length]="nationsCount"
+                   [pageSize]="defaultPageSize"
+                   [pageSizeOptions]="[3, 5, 10]">
+    </mat-paginator>
 
   </mat-card-content>
 </mat-card>

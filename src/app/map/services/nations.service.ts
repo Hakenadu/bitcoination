@@ -1,11 +1,25 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
-export interface Nation {
+export interface Purchase {
+  id: number;
+  buy_date: Date;
+  amount: number;
+}
+
+export interface CountryCode {
+  id: number;
   name: string;
   code: string;
+}
+
+export interface Nation {
+  id: number;
+  country_code: CountryCode;
   status: 'legal' | 'not_legal';
+  purchases?: Purchase[];
 }
 
 @Injectable({
@@ -13,24 +27,17 @@ export interface Nation {
 })
 export class NationsService {
 
-  private nations: Nation[] = [
-    {name: 'Germany', code: 'XX', status: 'not_legal'},
-    {name: 'El Salvador', code: 'SV', status: 'legal'},
-    {name: 'Puddingland', code: 'XX', status: 'not_legal'},
-    {name: 'Austria', code: 'XX', status: 'not_legal'},
-    {name: 'Australia', code: 'XX', status: 'not_legal'},
-    {name: 'Ireland', code: 'XX', status: 'not_legal'},
-  ];
-
   constructor(private httpClient: HttpClient) {
   }
 
   findNations(pageIndex: number, pageSize: number): Observable<Nation[]> {
     const start = pageIndex * pageSize;
-    return of(this.nations.slice(start, start + pageSize));
+    return this.httpClient.get<Nation[]>(`${environment.strapiBaseUrl}/nations`, {
+      params: new HttpParams().set('_start', start.toString()).set('_limit', pageSize.toString())
+    });
   }
 
   countNations(): Observable<number> {
-    return of(this.nations.length);
+    return this.httpClient.get<number>(`${environment.strapiBaseUrl}/nations/count`);
   }
 }

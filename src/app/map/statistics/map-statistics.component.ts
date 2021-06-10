@@ -47,7 +47,7 @@ export class MapStatisticsComponent implements OnInit, AfterViewInit {
   private matPaginator?: MatPaginator;
 
   dataSource: NationsDataSource;
-  displayedColumns = ['name', 'status'];
+  displayedColumns = ['name', 'code', 'status'];
 
   collapsed = false;
 
