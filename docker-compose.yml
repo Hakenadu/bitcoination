@@ -1,0 +1,9 @@
+version: "3"
+services:
+  msweb-frontend:
+    restart: always
+    image: hakenadu/bitcoination
+    build:
+      context: ./
+    ports:
+      - 80:80
