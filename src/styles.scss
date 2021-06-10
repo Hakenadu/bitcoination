@@ -15,8 +15,41 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$bitcoination-primary: mat-palette($mat-indigo);
-$bitcoination-accent: mat-palette($mat-pink, A200, A100, A400);
+$bitcoination-primary: mat-palette((
+  50 : #fff3e0,
+  100 : #ffe0b3,
+  200 : #ffcc80,
+  300 : #ffb84d,
+  400 : #ffa826,
+  500 : #ff9900,
+  600 : #ff9100,
+  700 : #ff8600,
+  800 : #ff7c00,
+  900 : #ff6b00,
+  A100 : #ffffff,
+  A200 : #fff7f2,
+  A400 : #ffd6bf,
+  A700 : #ffc6a6,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+));
+$bitcoination-accent: mat-palette($mat-gray);
+/* For use in src/lib/core/theming/_palette.scss */
+
 
 // The warn palette is optional (defaults to red).
 $bitcoination-warn: mat-palette($mat-red);

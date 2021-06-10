@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
+import {map} from 'rxjs/operators';
 
 export interface Purchase {
   id: number;
@@ -27,17 +28,31 @@ export interface Nation {
 })
 export class NationsService {
 
+  private _nations = new BehaviorSubject<Nation[] | null>(null);
+
   constructor(private httpClient: HttpClient) {
+    this.httpClient.get<Nation[]>(`${environment.strapiBaseUrl}/nations`).subscribe(nations => {
+      this._nations.next(nations);
+    });
+  }
+
+  get nations(): Observable<Nation[]> {
+    if (!this._nations.value) {
+      return this._nations.asObservable().pipe(map(nations => !nations ? [] : nations));
+    }
+    return of(this._nations.value);
   }
 
   findNations(pageIndex: number, pageSize: number): Observable<Nation[]> {
     const start = pageIndex * pageSize;
-    return this.httpClient.get<Nation[]>(`${environment.strapiBaseUrl}/nations`, {
-      params: new HttpParams().set('_start', start.toString()).set('_limit', pageSize.toString())
-    });
+    return this.nations.pipe(
+      map(nations => {
+        return nations.slice(start, start + pageSize);
+      })
+    );
   }
 
   countNations(): Observable<number> {
-    return this.httpClient.get<number>(`${environment.strapiBaseUrl}/nations/count`);
+    return this.nations.pipe(map(nations => !nations ? 0 : nations.length));
   }
 }

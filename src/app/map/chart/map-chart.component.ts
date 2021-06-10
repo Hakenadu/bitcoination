@@ -1,9 +1,12 @@
-import {AfterViewInit, Component, ElementRef, Inject, NgZone, OnInit, PLATFORM_ID, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, Inject, NgZone, PLATFORM_ID, ViewChild} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import * as am4core from '@amcharts/amcharts4/core';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
+import {NationsService} from '../services/nations.service';
+import {map} from 'rxjs/operators';
+import {MapPolygon} from '@amcharts/amcharts4/maps';
 
 @Component({
   selector: 'btc-map-chart',
@@ -16,7 +19,9 @@ export class MapChartComponent implements AfterViewInit {
   private chartDiv: ElementRef<HTMLDivElement> | undefined;
 
 
-  constructor(@Inject(PLATFORM_ID) private platformId: any, private zone: NgZone) {
+  constructor(@Inject(PLATFORM_ID) private platformId: any,
+              private zone: NgZone,
+              private nationsService: NationsService) {
   }
 
   browserOnly(f: () => void): void {
@@ -57,7 +62,30 @@ export class MapChartComponent implements AfterViewInit {
       hs.properties.fill = am4core.color('#367B25');
 
       chart.events.on('ready', (ev) => {
-        worldSeries.getPolygonById('SV').fill = am4core.color('#FF9900');
+        this.nationsService.nations.pipe(map(nations =>
+          nations.filter(nation => nation.status === 'legal')
+            .map(nation => nation.country_code.code)
+            .map(code => worldSeries.getPolygonById(code))))
+          .subscribe(polygons => {
+            if (polygons.length === 0) {
+              return;
+            }
+
+            let largestPolygon: MapPolygon | undefined;
+            let largestArea = -1;
+
+            for (const polygon of polygons) {
+              polygon.fill = am4core.color('#FF9900');
+              if (polygon.boxArea > largestArea) {
+                largestPolygon = polygon;
+                largestArea = polygon.boxArea;
+              }
+            }
+
+            if (largestPolygon) {
+              chart.zoomToMapObject(largestPolygon);
+            }
+          });
       });
     });
   }

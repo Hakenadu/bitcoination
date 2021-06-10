@@ -65,7 +65,7 @@ export class MapStatisticsComponent implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.matPaginator !== undefined) {
       this.matPaginator.page.subscribe(() =>
         this.dataSource.loadNations(this.matPaginator?.pageIndex || 0, this.matPaginator?.pageSize || this.defaultPageSize));
