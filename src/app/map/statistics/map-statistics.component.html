@@ -16,32 +16,34 @@
       <mat-spinner></mat-spinner>
     </div>
 
-    <mat-table [dataSource]="dataSource">
+    <ng-container *ngIf="nationsCount!==undefined && nationsCount>0">
+      <mat-table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Nation</mat-header-cell>
-        <mat-cell *matCellDef="let nation">{{nation.name}}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef mat-sort-header>Nation</mat-header-cell>
+          <mat-cell *matCellDef="let nation">{{nation.name}}</mat-cell>
+        </ng-container>
 
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-        <mat-cell *matCellDef="let nation">
-          <mat-icon *ngIf="nation.status === 'legal'"
-                    color="accent">
-            check
-          </mat-icon>
-        </mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+          <mat-cell *matCellDef="let nation">
+            <mat-icon *ngIf="nation.status === 'legal'"
+                      color="accent">
+              check
+            </mat-icon>
+          </mat-cell>
+        </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let nation; columns: displayedColumns"></mat-row>
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row *matRowDef="let nation; columns: displayedColumns"></mat-row>
 
-    </mat-table>
+      </mat-table>
 
-    <!--mat-paginator [length]="blogPostCount"
-                   [pageSize]="defaultPageSize"
-                   [pageSizeOptions]="[3, 5, 10]">
-    </mat-paginator-->
+      <mat-paginator [length]="nationsCount"
+                     [pageSize]="defaultPageSize"
+                     [pageSizeOptions]="[3, 5, 10]">
+      </mat-paginator>
+    </ng-container>
 
   </mat-card-content>
 </mat-card>

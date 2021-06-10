@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Nation, NationsService} from '../services/nations.service';
 import {CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {catchError, finalize} from 'rxjs/operators';
+import {MatPaginator} from '@angular/material/paginator';
 
 export class NationsDataSource implements DataSource<Nation> {
 
@@ -23,10 +24,10 @@ export class NationsDataSource implements DataSource<Nation> {
     this.loadingSubject.complete();
   }
 
-  loadNations(): void {
+  loadNations(pageIndex: number, pageSize: number): void {
     this.loadingSubject.next(true);
 
-    this.nationsService.findNations()
+    this.nationsService.findNations(pageIndex, pageSize)
       .pipe(
         catchError(() => of([])),
         finalize(() => this.loadingSubject.next(false))
@@ -40,19 +41,37 @@ export class NationsDataSource implements DataSource<Nation> {
   templateUrl: './map-statistics.component.html',
   styleUrls: ['./map-statistics.component.scss']
 })
-export class MapStatisticsComponent implements OnInit {
+export class MapStatisticsComponent implements OnInit, AfterViewInit {
+
+  @ViewChild(MatPaginator)
+  private matPaginator?: MatPaginator;
 
   dataSource: NationsDataSource;
   displayedColumns = ['name', 'status'];
 
   collapsed = false;
 
+  defaultPageSize = 5;
+  nationsCount?: number;
+
   constructor(private nationsService: NationsService) {
     this.dataSource = new NationsDataSource(this.nationsService);
   }
 
   ngOnInit(): void {
-    this.dataSource.loadNations();
+    this.nationsService.countNations().subscribe(count => {
+      this.nationsCount = count;
+      this.dataSource.loadNations(0, this.defaultPageSize);
+    });
+  }
+
+  ngAfterViewInit() {
+    if (this.matPaginator !== undefined) {
+      this.matPaginator.page.subscribe(() =>
+        this.dataSource.loadNations(this.matPaginator?.pageIndex || 0, this.matPaginator?.pageSize || this.defaultPageSize));
+    } else {
+      throw new Error('no matPaginator after view init');
+    }
   }
 
   toggleExpansion(): void {

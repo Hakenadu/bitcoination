@@ -1,7 +1,7 @@
 .btc-map-statistics {
   border-top: 2px solid gray;
   border-radius: 0;
-  padding: 0.5rem;
+  padding: 0;
 
   .btc-expansion-toggle {
     transition: transform 300ms ease;
@@ -15,6 +15,7 @@
     display: flex !important;
     flex-direction: row !important;
     align-items: center;
+    border-bottom: 1px solid gray;
 
     .mat-card-title {
       margin-bottom: 0;
@@ -33,6 +34,27 @@
 
     .mat-table {
       background-color: inherit;
+
+      .mat-header-row {
+        min-height: unset;
+        background-color: lightgray;
+      }
+
+      .mat-row {
+        min-height: unset;
+
+        .mat-cell {
+          padding: 0.5em;
+        }
+      }
+    }
+
+    ::ng-deep .mat-paginator {
+      background-color: inherit;
+
+      .mat-paginator-range-label {
+        margin-right: 12px;
+      }
     }
   }
 }

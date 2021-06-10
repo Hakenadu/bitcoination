@@ -25,7 +25,12 @@ export class NationsService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findNations(): Observable<Nation[]> {
-    return of(this.nations);
+  findNations(pageIndex: number, pageSize: number): Observable<Nation[]> {
+    const start = pageIndex * pageSize;
+    return of(this.nations.slice(start, start + pageSize));
+  }
+
+  countNations(): Observable<number> {
+    return of(this.nations.length);
   }
 }
