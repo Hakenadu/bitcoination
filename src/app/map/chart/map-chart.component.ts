@@ -58,6 +58,9 @@ export class MapChartComponent implements AfterViewInit {
       am4core.useTheme(am4themes_animated);
 
       this.chart = am4core.create(this.chartDiv?.nativeElement, am4maps.MapChart);
+      this.chart.zoomDuration = 200;
+      this.chart.zoomEasing = am4core.ease.cubicInOut;
+      this.chart.zoomStep = 5;
 
       this.chart.geodata = am4geodata_worldLow;
 
