@@ -1,12 +1,22 @@
-import {AfterViewInit, Component, ElementRef, Inject, NgZone, PLATFORM_ID, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  NgZone,
+  Output,
+  PLATFORM_ID,
+  ViewChild
+} from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import * as am4core from '@amcharts/amcharts4/core';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4maps from '@amcharts/amcharts4/maps';
+import {MapChart, MapPolygon} from '@amcharts/amcharts4/maps';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
-import {NationsService} from '../services/nations.service';
+import {Nation, NationsService} from '../services/nations.service';
 import {map} from 'rxjs/operators';
-import {MapPolygon} from '@amcharts/amcharts4/maps';
 
 @Component({
   selector: 'btc-map-chart',
@@ -17,6 +27,11 @@ export class MapChartComponent implements AfterViewInit {
   @ViewChild('chartDiv')
   private chartDiv: ElementRef<HTMLDivElement> | undefined;
 
+  @Output()
+  nationSelected = new EventEmitter<Nation>();
+
+  private chart?: MapChart;
+  private worldSeries?: am4maps.MapPolygonSeries;
 
   constructor(@Inject(PLATFORM_ID) private platformId: any,
               private zone: NgZone,
@@ -36,35 +51,55 @@ export class MapChartComponent implements AfterViewInit {
       am4core.useTheme((target) => {
         if (target instanceof am4core.ColorSet) {
           target.list = [
-            am4core.color('gray')
+            am4core.color('#BCBCBC')
           ];
         }
       });
       am4core.useTheme(am4themes_animated);
 
-      const chart = am4core.create(this.chartDiv?.nativeElement, am4maps.MapChart);
+      this.chart = am4core.create(this.chartDiv?.nativeElement, am4maps.MapChart);
 
-      chart.geodata = am4geodata_worldLow;
+      this.chart.geodata = am4geodata_worldLow;
 
-      chart.projection = new am4maps.projections.Miller();
+      this.chart.projection = new am4maps.projections.Miller();
 
-      const worldSeries = chart.series.push(new am4maps.MapPolygonSeries());
-      worldSeries.exclude = ['AQ'];
-      worldSeries.useGeodata = true;
+      this.worldSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
+      this.worldSeries.exclude = ['AQ'];
+      this.worldSeries.useGeodata = true;
 
-      const polygonTemplate = worldSeries.mapPolygons.template;
+      const polygonTemplate = this.worldSeries.mapPolygons.template;
       polygonTemplate.tooltipText = '{name}';
-      polygonTemplate.fill = chart.colors.getIndex(0);
+      polygonTemplate.fill = this.chart.colors.getIndex(0);
       polygonTemplate.nonScalingStroke = true;
 
       const hs = polygonTemplate.states.create('hover');
-      hs.properties.fill = am4core.color('#367B25');
+      hs.properties.fill = am4core.color('#888888');
 
-      chart.events.on('ready', (ev) => {
+      polygonTemplate.events.on('hit', ev => {
+        // zoom to an object
+        ev.target.series.chart.zoomToMapObject(ev.target);
+
+        const countryCode = (ev.target.dataItem?.dataContext as { id: string }).id;
+
+        this.zone.run(() => {
+          this.nationsService.findNationByCountryCode(countryCode).subscribe(clickedNation => {
+            if (clickedNation) {
+              this.nationSelected.emit(clickedNation);
+            }
+          });
+        })
+      });
+
+      this.chart.events.on('ready', (ev) => {
         this.nationsService.nations.pipe(map(nations =>
           nations.filter(nation => nation.status === 'legal')
             .map(nation => nation.country_code.code)
-            .map(code => worldSeries.getPolygonById(code))))
+            .map(code => {
+              if (!this.worldSeries) {
+                throw new Error('worldSeries missing');
+              }
+              return this.worldSeries.getPolygonById(code);
+            })))
           .subscribe(polygons => {
             if (polygons.length === 0) {
               return;
@@ -81,11 +116,20 @@ export class MapChartComponent implements AfterViewInit {
               }
             }
 
-            if (largestPolygon) {
-              chart.zoomToMapObject(largestPolygon);
-            }
+            // in case we want to initially zoom to the largest polygon
+            // if (largestPolygon) {
+            //  chart.zoomToMapObject(largestPolygon);
+            // }
           });
       });
     });
+  }
+
+  zoomToNation(nation: Nation): void {
+    const nationPolygon = this.worldSeries?.getPolygonById(nation.country_code.code);
+    if (!nationPolygon) {
+      return;
+    }
+    this.chart?.zoomToMapObject(nationPolygon);
   }
 }

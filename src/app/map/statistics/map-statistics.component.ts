@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {Nation, NationsService} from '../services/nations.service';
 import {CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {BehaviorSubject, Observable, of} from 'rxjs';
@@ -42,6 +42,9 @@ export class NationsDataSource implements DataSource<Nation> {
   styleUrls: ['./map-statistics.component.scss']
 })
 export class MapStatisticsComponent implements OnInit, AfterViewInit {
+
+  @Output()
+  nationSelected = new EventEmitter<Nation>();
 
   @ViewChild(MatPaginator)
   private matPaginator?: MatPaginator;

@@ -16,6 +16,8 @@ import {MapChartComponent} from './map/chart/map-chart.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {HttpClientModule} from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatDialogModule} from '@angular/material/dialog';
+import { PurchasesComponent } from './map/purchases/purchases.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     NavbarComponent,
     MapComponent,
     MapStatisticsComponent,
-    MapChartComponent
+    MapChartComponent,
+    PurchasesComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +38,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatTableModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
+    MatDialogModule,
     NgbModule,
     HttpClientModule
   ],

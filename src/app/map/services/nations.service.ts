@@ -43,6 +43,10 @@ export class NationsService {
     return of(this._nations.value);
   }
 
+  findNationByCountryCode(countryCode: string): Observable<Nation | undefined> {
+    return this.nations.pipe(map(nations => nations.find(n => n.country_code.code === countryCode)));
+  }
+
   findNations(pageIndex: number, pageSize: number): Observable<Nation[]> {
     const start = pageIndex * pageSize;
     return this.nations.pipe(

@@ -43,6 +43,16 @@
 
       .mat-row {
         min-height: unset;
+        cursor: pointer;
+        transition: background-color 150ms ease-in-out;
+
+        &:hover {
+          background-color: #eae8e8;
+        }
+
+        &:active {
+          background-color: rgba(255, 153, 0, 0.5);
+        }
 
         .mat-cell {
           padding: 0.5em;

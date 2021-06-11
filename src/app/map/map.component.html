@@ -1,6 +1,6 @@
 <div class="w-100 h-100 d-flex flex-column">
   <div class="h-100">
-    <btc-map-chart></btc-map-chart>
+    <btc-map-chart (nationSelected)="showPurchases($event, false)"></btc-map-chart>
   </div>
-  <btc-map-statistics></btc-map-statistics>
+  <btc-map-statistics (nationSelected)="showPurchases($event, true)"></btc-map-statistics>
 </div>

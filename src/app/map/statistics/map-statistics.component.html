@@ -39,8 +39,7 @@
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-      <mat-row *matRowDef="let nation; columns: displayedColumns"></mat-row>
-
+      <mat-row (click)="nationSelected.emit(nation)" *matRowDef="let nation; columns: displayedColumns"></mat-row>
     </mat-table>
 
     <mat-paginator [length]="nationsCount"
