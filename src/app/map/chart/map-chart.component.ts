@@ -78,54 +78,58 @@ export class MapChartComponent implements AfterViewInit {
       const hs = polygonTemplate.states.create('hover');
       hs.properties.fill = am4core.color('#888888');
 
-      polygonTemplate.events.on('hit', ev => {
-        // zoom to an object
-        ev.target.series.chart.zoomToMapObject(ev.target);
+      polygonTemplate.events.on('hit', ev => this.onPolygonClicked(ev.target));
 
-        const countryCode = (ev.target.dataItem?.dataContext as { id: string }).id;
+      this.chart.events.on('ready', ev => this.onChartReady());
+    });
+  }
 
-        this.zone.run(() => {
-          this.nationsService.findNationByCountryCode(countryCode).subscribe(clickedNation => {
-            if (clickedNation) {
-              this.nationSelected.emit(clickedNation);
-            }
-          });
-        })
-      });
+  private onPolygonClicked(polygon: MapPolygon): void {
+    // zoom to an object
+    polygon.series.chart.zoomToMapObject(polygon);
 
-      this.chart.events.on('ready', (ev) => {
-        this.nationsService.nations.pipe(map(nations =>
-          nations.filter(nation => nation.status === 'legal')
-            .map(nation => nation.country_code.code)
-            .map(code => {
-              if (!this.worldSeries) {
-                throw new Error('worldSeries missing');
-              }
-              return this.worldSeries.getPolygonById(code);
-            })))
-          .subscribe(polygons => {
-            if (polygons.length === 0) {
-              return;
-            }
+    const countryCode = (polygon.dataItem?.dataContext as { id: string }).id;
 
-            let largestPolygon: MapPolygon | undefined;
-            let largestArea = -1;
-
-            for (const polygon of polygons) {
-              polygon.fill = am4core.color('#FF9900');
-              if (polygon.boxArea > largestArea) {
-                largestPolygon = polygon;
-                largestArea = polygon.boxArea;
-              }
-            }
-
-            // in case we want to initially zoom to the largest polygon
-            // if (largestPolygon) {
-            //  chart.zoomToMapObject(largestPolygon);
-            // }
-          });
+    this.zone.run(() => {
+      this.nationsService.findNationByCountryCode(countryCode).subscribe(clickedNation => {
+        if (clickedNation) {
+          this.nationSelected.emit(clickedNation);
+        }
       });
     });
+  }
+
+  private onChartReady(): void {
+    this.nationsService.nations.pipe(map(nations =>
+      nations.filter(nation => nation.status === 'legal')
+        .map(nation => nation.country_code.code)
+        .map(code => {
+          if (!this.worldSeries) {
+            throw new Error('worldSeries missing');
+          }
+          return this.worldSeries.getPolygonById(code);
+        })))
+      .subscribe(polygons => {
+        if (polygons.length === 0) {
+          return;
+        }
+
+        let largestPolygon: MapPolygon | undefined;
+        let largestArea = -1;
+
+        for (const polygon of polygons) {
+          polygon.fill = am4core.color('#FF9900');
+          if (polygon.boxArea > largestArea) {
+            largestPolygon = polygon;
+            largestArea = polygon.boxArea;
+          }
+        }
+
+        // in case we want to initially zoom to the largest polygon
+        // if (largestPolygon) {
+        //  chart.zoomToMapObject(largestPolygon);
+        // }
+      });
   }
 
   zoomToNation(nation: Nation): void {

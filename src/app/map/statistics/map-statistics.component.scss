@@ -1,9 +1,4 @@
 .btc-map-statistics {
-  // position: absolute;
-  // bottom: 0;
-  // left: 0;
-  // right: 0;
-
   border-top: 2px solid gray;
   border-radius: 0;
   padding: 0;
@@ -13,9 +8,30 @@
     flex-direction: row !important;
     align-items: center;
     border-bottom: 1px solid gray;
+    cursor: pointer;
+    padding-left: 0.5em;
+
+    transition: background-color 150ms ease-in-out;
+
+    &:hover {
+      background-color: #eae8e8;
+    }
+
+    &:active {
+      background-color: #dedcdc;
+    }
 
     .btc-expansion-toggle {
-      transition: transform 300ms ease;
+      .mat-icon {
+        transition: transform 300ms ease;
+      }
+    }
+
+    ::ng-deep {
+      .mat-card-header-text {
+        flex-grow: 1;
+        margin-left: 0;
+      }
     }
 
     .mat-card-title {
@@ -71,7 +87,9 @@
 
   &.btc-collapsed {
     .btc-expansion-toggle {
-      transform: rotate(180deg);
+      .mat-icon {
+        transform: rotate(180deg);
+      }
     }
 
     .mat-card-content {

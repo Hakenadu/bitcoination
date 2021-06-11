@@ -77,7 +77,8 @@ export class MapStatisticsComponent implements OnInit, AfterViewInit {
     }
   }
 
-  toggleExpansion(): void {
+  toggleExpansion($event: Event): void {
     this.collapsed = !this.collapsed;
+    $event.stopPropagation();
   }
 }

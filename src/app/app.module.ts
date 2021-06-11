@@ -17,7 +17,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {HttpClientModule} from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
-import { PurchasesComponent } from './map/purchases/purchases.component';
+import {PurchasesComponent} from './map/purchases/purchases.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { PurchasesComponent } from './map/purchases/purchases.component';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatTabsModule,
     NgbModule,
     HttpClientModule
   ],

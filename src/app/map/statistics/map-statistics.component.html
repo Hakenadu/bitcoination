@@ -1,13 +1,13 @@
 <mat-card class="btc-map-statistics bg-light"
           [ngClass]="{'btc-collapsed':this.collapsed}">
 
-  <mat-card-header>
-    <button mat-icon-button mat-card-avatar
-            (click)="toggleExpansion()"
+  <mat-card-header (click)="toggleExpansion($event)">
+    <mat-card-title>BTC Nations</mat-card-title>
+    <button mat-icon-button
+            (click)="toggleExpansion($event)"
             class="btc-expansion-toggle d-flex justify-content-center align-items-center">
       <mat-icon class="material-icons-outlined">expand_circle_down</mat-icon>
     </button>
-    <mat-card-title>BTC Nations</mat-card-title>
   </mat-card-header>
 
   <mat-card-content [ngClass]="{'btc-collapsed':this.collapsed}">
@@ -16,31 +16,65 @@
       <mat-spinner></mat-spinner>
     </div>
 
-    <mat-table [dataSource]="dataSource">
+    <mat-tab-group>
 
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Nation</mat-header-cell>
-        <mat-cell *matCellDef="let nation">{{nation.country_code.name}}</mat-cell>
-      </ng-container>
+      <mat-tab label="Noch'n">
+        <mat-table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="code">
-        <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
-        <mat-cell *matCellDef="let nation">{{nation.country_code.code}}</mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Nation</mat-header-cell>
+            <mat-cell *matCellDef="let nation">{{nation.country_code.name}}</mat-cell>
+          </ng-container>
 
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-        <mat-cell *matCellDef="let nation">
-          <mat-icon *ngIf="nation.status === 'legal'"
-                    color="primary">
-            check
-          </mat-icon>
-        </mat-cell>
-      </ng-container>
+          <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+            <mat-cell *matCellDef="let nation">{{nation.country_code.code}}</mat-cell>
+          </ng-container>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-      <mat-row (click)="nationSelected.emit(nation)" *matRowDef="let nation; columns: displayedColumns"></mat-row>
-    </mat-table>
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+            <mat-cell *matCellDef="let nation">
+              <mat-icon *ngIf="nation.status === 'legal'"
+                        color="primary">
+                check
+              </mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row (click)="nationSelected.emit(nation)" *matRowDef="let nation; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </mat-tab>
+
+      <mat-tab label="Kaffee?">
+        <mat-table [dataSource]="dataSource">
+
+          <ng-container matColumnDef="name">
+            <mat-header-cell *matHeaderCellDef>Nation</mat-header-cell>
+            <mat-cell *matCellDef="let nation">{{nation.country_code.name}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="code">
+            <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
+            <mat-cell *matCellDef="let nation">{{nation.country_code.code}}</mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
+            <mat-cell *matCellDef="let nation">
+              <mat-icon *ngIf="nation.status === 'legal'"
+                        color="primary">
+                check
+              </mat-icon>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+          <mat-row (click)="nationSelected.emit(nation)" *matRowDef="let nation; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </mat-tab>
+    </mat-tab-group>
+
 
     <mat-paginator [length]="nationsCount"
                    [pageSize]="defaultPageSize"
