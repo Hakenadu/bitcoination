@@ -20,23 +20,20 @@
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef>Nation</mat-header-cell>
-        <mat-cell *matCellDef="let nation">{{nation.country_code.name}}</mat-cell>
+        <mat-cell *matCellDef="let nation">{{nation.name}}</mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="code">
-        <mat-header-cell *matHeaderCellDef>Code</mat-header-cell>
-        <mat-cell *matCellDef="let nation">{{nation.country_code.code}}</mat-cell>
-      </ng-container>
 
-      <ng-container matColumnDef="status">
-        <mat-header-cell *matHeaderCellDef>Status</mat-header-cell>
-        <mat-cell *matCellDef="let nation">
-          <mat-icon *ngIf="nation.status === 'legal'"
-                    color="primary">
-            check
-          </mat-icon>
-        </mat-cell>
-      </ng-container>
+
+          <ng-container matColumnDef="status">
+            <mat-header-cell *matHeaderCellDef>BTC legal tender</mat-header-cell>
+            <mat-cell *matCellDef="let nation">
+              <mat-icon *ngIf="nation.status === 'legal'"
+                        color="primary">
+                check
+              </mat-icon>
+            </mat-cell>
+          </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
       <mat-row (click)="nationSelected.emit(nation)" *matRowDef="let nation; columns: displayedColumns"></mat-row>

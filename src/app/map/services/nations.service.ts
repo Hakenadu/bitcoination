@@ -4,23 +4,19 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
 
-export interface Purchase {
+export interface Holding {
   id: number;
   buy_date: Date;
   amount: number;
 }
 
-export interface CountryCode {
-  id: number;
-  name: string;
-  code: string;
-}
 
 export interface Nation {
   id: number;
-  country_code: CountryCode;
   status: 'legal' | 'not_legal';
-  purchases?: Purchase[];
+  holdings?: Holding[];
+  name: string;
+  code: string;
 }
 
 @Injectable({
@@ -44,7 +40,7 @@ export class NationsService {
   }
 
   findNationByCountryCode(countryCode: string): Observable<Nation | undefined> {
-    return this.nations.pipe(map(nations => nations.find(n => n.country_code.code === countryCode)));
+    return this.nations.pipe(map(nations => nations.find(n => n.code === countryCode)));
   }
 
   findNations(pageIndex: number, pageSize: number): Observable<Nation[]> {

@@ -102,7 +102,7 @@ export class MapChartComponent implements AfterViewInit {
   private onChartReady(): void {
     this.nationsService.nations.pipe(map(nations =>
       nations.filter(nation => nation.status === 'legal')
-        .map(nation => nation.country_code.code)
+        .map(nation => nation.code)
         .map(code => {
           if (!this.worldSeries) {
             throw new Error('worldSeries missing');
@@ -133,7 +133,7 @@ export class MapChartComponent implements AfterViewInit {
   }
 
   zoomToNation(nation: Nation): void {
-    const nationPolygon = this.worldSeries?.getPolygonById(nation.country_code.code);
+    const nationPolygon = this.worldSeries?.getPolygonById(nation.code);
     if (!nationPolygon) {
       return;
     }
