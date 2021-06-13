@@ -2,7 +2,7 @@ version: "3"
 services:
   msweb-frontend:
     restart: always
-    image: hakenadu/bitcoination
+    image: hakenadu/bitcoinations
     build:
       context: ./
     ports:
