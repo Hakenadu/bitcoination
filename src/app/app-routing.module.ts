@@ -11,6 +11,7 @@ const routes: Routes = [
   {
     path: 'map',
     component: MapComponent,
+    data: {name: 'MapPage'}
   }
 ];
 

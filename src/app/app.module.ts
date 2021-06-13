@@ -19,6 +19,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {PurchasesComponent} from './map/purchases/purchases.component';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatomoModule} from 'ngx-matomo';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatDialogModule,
     MatTabsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    MatomoModule
   ],
   providers: [],
   bootstrap: [AppComponent]
