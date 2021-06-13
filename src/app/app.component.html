@@ -1,4 +1,9 @@
 <btc-navbar></btc-navbar>
 <div class="h-100 pt-5" (mousedown)="navbar?.hide()">
-  <router-outlet #outlet="outlet"></router-outlet>
+  <div class="h-100"
+       [@routeAnimations]="prepareRoute(outlet)"
+       (@routeAnimations.start)="startAnimation($event)"
+       (@routeAnimations.done)="endAnimation($event)">
+    <router-outlet #outlet="outlet"></router-outlet>
+  </div>
 </div>

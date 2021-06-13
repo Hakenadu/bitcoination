@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {map} from 'rxjs/operators';
@@ -9,7 +9,6 @@ export interface Holding {
   buy_date: Date;
   amount: number;
 }
-
 
 export interface Nation {
   id: number;
@@ -27,7 +26,9 @@ export class NationsService {
   private _nations = new BehaviorSubject<Nation[] | null>(null);
 
   constructor(private httpClient: HttpClient) {
-    this.httpClient.get<Nation[]>(`${environment.strapiBaseUrl}/nations`).subscribe(nations => {
+    this.httpClient.get<Nation[]>(`${environment.strapiBaseUrl}/nations`, {
+      params: new HttpParams().set('status', 'legal')
+    }).subscribe(nations => {
       this._nations.next(nations);
     });
   }

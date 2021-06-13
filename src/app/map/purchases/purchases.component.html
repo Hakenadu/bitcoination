@@ -1,12 +1,13 @@
 <ng-container *ngIf="nation">
-  <h1 mat-dialog-title>Purchases for {{nation.country_code.name}}</h1>
+  <h1 mat-dialog-title>Purchases for {{nation.name}}</h1>
   <mat-dialog-content>
     Insert Content here
 
     <!-- TODO (vmt läuft auch die Date Conversion noch nicht richtig) -->
-    <div *ngFor="let purchase of nation.purchases||[]">
+    <!--div *ngFor="let purchase of nation.purchases||[]">
       {{purchase.id}}
-    </div>
+    </div-->
+
   </mat-dialog-content>
   <mat-dialog-actions class="d-flex justify-content-end">
     <button mat-raised-button

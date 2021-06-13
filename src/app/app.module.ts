@@ -20,6 +20,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {PurchasesComponent} from './map/purchases/purchases.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatomoModule} from 'ngx-matomo';
+import {AboutComponent} from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {MatomoModule} from 'ngx-matomo';
     MapComponent,
     MapStatisticsComponent,
     MapChartComponent,
-    PurchasesComponent
+    PurchasesComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

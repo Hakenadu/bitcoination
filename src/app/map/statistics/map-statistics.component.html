@@ -12,37 +12,38 @@
 
   <mat-card-content [ngClass]="{'btc-collapsed':this.collapsed}">
 
-    <div class="w-100 d-flex justify-content-center" *ngIf="dataSource.loading$ | async">
+    <div class="w-100 p-3 d-flex justify-content-center" *ngIf="dataSource.loading$ | async">
       <mat-spinner></mat-spinner>
     </div>
 
-    <mat-table [dataSource]="dataSource">
+    <ng-container *ngIf="!(dataSource.loading$ | async)">
+      <mat-table [dataSource]="dataSource">
 
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef>Nation</mat-header-cell>
-        <mat-cell *matCellDef="let nation">{{nation.name}}</mat-cell>
-      </ng-container>
+        <ng-container matColumnDef="name">
+          <mat-header-cell *matHeaderCellDef>Nation</mat-header-cell>
+          <mat-cell *matCellDef="let nation">{{nation.name}}</mat-cell>
+        </ng-container>
 
 
+        <ng-container matColumnDef="status">
+          <mat-header-cell *matHeaderCellDef>BTC legal tender</mat-header-cell>
+          <mat-cell *matCellDef="let nation">
+            <mat-icon *ngIf="nation.status === 'legal'"
+                      color="primary">
+              check
+            </mat-icon>
+          </mat-cell>
+        </ng-container>
 
-          <ng-container matColumnDef="status">
-            <mat-header-cell *matHeaderCellDef>BTC legal tender</mat-header-cell>
-            <mat-cell *matCellDef="let nation">
-              <mat-icon *ngIf="nation.status === 'legal'"
-                        color="primary">
-                check
-              </mat-icon>
-            </mat-cell>
-          </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+        <mat-row (click)="nationSelected.emit(nation)" *matRowDef="let nation; columns: displayedColumns"></mat-row>
+      </mat-table>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-      <mat-row (click)="nationSelected.emit(nation)" *matRowDef="let nation; columns: displayedColumns"></mat-row>
-    </mat-table>
-
-    <mat-paginator [length]="nationsCount"
-                   [pageSize]="defaultPageSize"
-                   [pageSizeOptions]="[3, 5, 10]">
-    </mat-paginator>
+      <mat-paginator [length]="nationsCount"
+                     [pageSize]="defaultPageSize"
+                     [pageSizeOptions]="[3, 5, 10]">
+      </mat-paginator>
+    </ng-container>
 
   </mat-card-content>
 </mat-card>

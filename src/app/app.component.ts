@@ -1,13 +1,15 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavbarComponent} from './navbar/navbar.component';
 import {MatomoTracker} from 'ngx-matomo';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from '@angular/router';
 import {filter, map, switchMap} from 'rxjs/operators';
 import {of} from 'rxjs';
+import {slideInAnimation} from './shared/animations';
 
 @Component({
   selector: 'btc-root',
-  templateUrl: './app.component.html'
+  templateUrl: './app.component.html',
+  animations: [slideInAnimation]
 })
 export class AppComponent {
 
@@ -31,5 +33,18 @@ export class AppComponent {
         matomoTracker.trackEvent('show-page', data.name);
       }
     });
+  }
+
+  startAnimation($event: any) {
+    document.body.classList.add('overflow-hidden');
+  }
+
+  endAnimation($event: any) {
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    // tslint:disable-next-line:no-string-literal
+    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['name'];
   }
 }

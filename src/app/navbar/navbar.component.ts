@@ -21,6 +21,11 @@ export class NavbarComponent {
       name: 'Map',
       path: '/map',
       icon: 'map'
+    },
+    {
+      name: 'About',
+      path: '/about',
+      icon: 'info'
     }
   ];
 
