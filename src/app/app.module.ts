@@ -21,6 +21,8 @@ import {PurchasesComponent} from './map/purchases/purchases.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatomoModule} from 'ngx-matomo';
 import {AboutComponent} from './about/about.component';
+import { StatisticsTableComponent } from './map/statistics/table/statistics-table.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -30,24 +32,26 @@ import {AboutComponent} from './about/about.component';
     MapStatisticsComponent,
     MapChartComponent,
     PurchasesComponent,
-    AboutComponent
+    AboutComponent,
+    StatisticsTableComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatTabsModule,
-    NgbModule,
-    HttpClientModule,
-    MatomoModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatIconModule,
+        MatButtonModule,
+        MatCardModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatTabsModule,
+        NgbModule,
+        HttpClientModule,
+        MatomoModule,
+        MatTooltipModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

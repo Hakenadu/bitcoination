@@ -8,6 +8,9 @@ export interface Holding {
   id: number;
   buy_date: Date;
   amount: number;
+  cost_basis: number;
+  sources_table: string;
+  sources_popup: string;
 }
 
 export interface Nation {
