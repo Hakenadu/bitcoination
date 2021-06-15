@@ -1,0 +1,18 @@
+a {
+  color: #ff9900;
+}
+
+/* visited link */
+a:visited {
+  color: gray;
+}
+
+/* mouse over link */
+a:hover {
+  color: darken(#ff9900, 0.1);
+}
+
+/* selected link */
+a:active {
+  color: lighten(#ff9900, 0.1);
+}

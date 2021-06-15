@@ -1,0 +1,18 @@
+<mat-card class="btc-no-margin h-100">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>privacy_tip</mat-icon>
+    <mat-card-title>Privacy</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      You may choose not to have a unique web analytics cookie identification number assigned to your computer to avoid
+      the aggregation and analysis of data collected on this website.
+    </p>
+    <p>
+      To make that choice, please click below to receive an opt-out cookie.
+    </p>
+    <mat-checkbox [formControl]="optedIn" color="primary">
+      {{optOutCheckboxText}}
+    </mat-checkbox>
+  </mat-card-content>
+</mat-card>

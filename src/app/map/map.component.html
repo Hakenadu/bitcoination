@@ -1,6 +1,17 @@
 <div class="w-100 h-100 d-flex flex-column">
-  <div class="h-100">
-    <btc-map-chart (nationSelected)="showPurchases($event, false)"></btc-map-chart>
+  <div class="btc-map-wrapper">
+    <btc-price-preview></btc-price-preview>
+    <button mat-icon-button
+            mat-raised-button
+            [@zoomFadeIn]
+            class="btc-reset-map-button"
+            *ngIf="showResetMapButton"
+            (click)="mapChart?.zoomOut()">
+      <mat-icon>zoom_out_map</mat-icon>
+    </button>
+    <btc-map-chart (nationSelected)="showPurchases($event, false)"
+                   (positionModified)="showResetMapButton=$event">
+    </btc-map-chart>
   </div>
   <btc-map-statistics (nationSelected)="showPurchases($event, true)"></btc-map-statistics>
 </div>

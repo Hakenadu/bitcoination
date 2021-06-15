@@ -17,6 +17,7 @@ import {MapChart, MapPolygon} from '@amcharts/amcharts4/maps';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
 import {Nation, NationsService} from '../services/nations.service';
 import {map} from 'rxjs/operators';
+import {Percent} from '@amcharts/amcharts4/core';
 
 @Component({
   selector: 'btc-map-chart',
@@ -29,6 +30,9 @@ export class MapChartComponent implements AfterViewInit {
 
   @Output()
   nationSelected = new EventEmitter<Nation>();
+
+  @Output()
+  positionModified = new EventEmitter<boolean>();
 
   private chart?: MapChart;
   private worldSeries?: am4maps.MapPolygonSeries;
@@ -61,6 +65,12 @@ export class MapChartComponent implements AfterViewInit {
       this.chart.zoomDuration = 200;
       this.chart.zoomEasing = am4core.ease.cubicInOut;
       this.chart.zoomStep = 5;
+      this.chart.events.on('drag', ev => {
+        this.positionModified.emit(true);
+      });
+      this.chart.events.on('zoomlevelchanged', ev => {
+        this.positionModified.emit(this.chart?.zoomLevel !== 1);
+      });
 
       this.chart.geodata = am4geodata_worldLow;
 
@@ -113,22 +123,9 @@ export class MapChartComponent implements AfterViewInit {
         if (polygons.length === 0) {
           return;
         }
-
-        let largestPolygon: MapPolygon | undefined;
-        let largestArea = -1;
-
         for (const polygon of polygons) {
           polygon.fill = am4core.color('#FF9900');
-          if (polygon.boxArea > largestArea) {
-            largestPolygon = polygon;
-            largestArea = polygon.boxArea;
-          }
         }
-
-        // in case we want to initially zoom to the largest polygon
-        // if (largestPolygon) {
-        //  chart.zoomToMapObject(largestPolygon);
-        // }
       });
   }
 
@@ -138,5 +135,10 @@ export class MapChartComponent implements AfterViewInit {
       return;
     }
     this.chart?.zoomToMapObject(nationPolygon);
+  }
+
+  zoomOut(): void {
+    this.chart?.goHome();
+    this.positionModified.emit(false);
   }
 }

@@ -4,6 +4,11 @@
   .mat-header-row {
 
     .mat-header-cell {
+
+      &.mat-column-cost-basis, &.mat-column-btc, &.mat-column-current-value, &.mat-column-change {
+        text-align: right;
+      }
+
       padding: 0.5em;
       border-bottom: 1px solid gray;
       border-right: 1px solid gray;
@@ -30,10 +35,15 @@
     .mat-cell {
       padding: 0.5em;
 
+      &.mat-column-cost-basis, &.mat-column-btc, &.mat-column-current-value {
+        text-align: right;
+      }
+
       &.mat-column-change {
         & > div {
           display: flex;
           flex-direction: row;
+          justify-content: flex-end;
           align-items: center;
 
           .mat-icon {
@@ -41,6 +51,18 @@
           }
         }
       }
+    }
+  }
+}
+
+.mat-tab-group {
+  &:not(.btc-tabbed) {
+    display: none;
+  }
+
+  &.btc-tabbed {
+    .mat-header-cell {
+      border-top: 1px solid gray;
     }
   }
 }

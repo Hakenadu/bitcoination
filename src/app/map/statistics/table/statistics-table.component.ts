@@ -1,14 +1,4 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  EventEmitter,
-  HostBinding,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-  ViewChild
-} from '@angular/core';
+import {Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {NationsDataSource} from '../map-statistics.component';
 import {Holding, Nation} from '../../services/nations.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
@@ -16,6 +6,7 @@ import {takeUntil} from 'rxjs/operators';
 import {Subject} from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import {CurrencyPipe, DecimalPipe} from '@angular/common';
+import {PricesService} from '../../services/prices.service';
 
 const NOT_AVAILABLE_PLACEHOLDER = 'N/A';
 
@@ -45,8 +36,8 @@ export class StatisticsTableComponent implements OnInit, OnDestroy {
   private matPaginator?: MatPaginator;
   private _tabbed = false;
 
-  constructor(private breakpointObserver: BreakpointObserver,
-              private changeDetectorRef: ChangeDetectorRef,
+  constructor(private pricesService: PricesService,
+              private breakpointObserver: BreakpointObserver,
               private currencyPipe: CurrencyPipe,
               private decimalPipe: DecimalPipe) {
   }
@@ -89,7 +80,11 @@ export class StatisticsTableComponent implements OnInit, OnDestroy {
   }
 
   currentValue(nation: Nation): number | undefined {
-    return this.holdingValueSum(nation, holding => holding.amount * 30000 /*TODO*/);
+    const bitcoinPrice = this.pricesService.bitcoinPrice.value;
+    if (bitcoinPrice !== null) {
+      return this.holdingValueSum(nation, holding => holding.amount * bitcoinPrice);
+    }
+    return undefined;
   }
 
   currentValueDisplayString(nation: Nation): string {
@@ -124,7 +119,7 @@ export class StatisticsTableComponent implements OnInit, OnDestroy {
   }
 
   changeDisplayString(nation: Nation): string {
-    return this.formatValue(this.change(nation), input => this.decimalPipe.transform(input, '4.1-5'));
+    return this.formatValue(this.change(nation), input => `${this.decimalPipe.transform(input, '4.1-5')}%`);
   }
 
   private formatValue(value: number | undefined, transform: (input: string) => string | null): string {
@@ -149,7 +144,6 @@ export class StatisticsTableComponent implements OnInit, OnDestroy {
   set tabbed(tabbed: boolean) {
     if (this._tabbed !== tabbed) {
       this._tabbed = tabbed;
-      this.changeDetectorRef.detectChanges();
     }
   }
 

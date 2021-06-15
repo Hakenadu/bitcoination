@@ -1,6 +1,6 @@
 <ng-container *ngIf="dataSource">
 
-  <mat-tab-group [ngClass]="{'d-none':!tabbed}">
+  <mat-tab-group [ngClass]="{'btc-tabbed':tabbed}">
     <mat-tab label="Legal Tender">
       <table mat-table
              [dataSource]="dataSource"
@@ -23,7 +23,9 @@
 
         <ng-container matColumnDef="sources">
           <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">Sources</th>
-          <td mat-cell *matCellDef="let nation">{{nation.name}}</td>
+          <td mat-cell *matCellDef="let nation">
+            W. I. P.
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="['name','status','sources']"></tr>
@@ -67,7 +69,7 @@
           </td>
         </ng-container>
         <ng-container matColumnDef="change">
-          <th mat-header-cell *matHeaderCellDef>% Change</th>
+          <th mat-header-cell *matHeaderCellDef>Change</th>
           <td mat-cell *matCellDef="let nation"
               [ngClass]="changeClass(nation)">
             <div>
@@ -125,7 +127,7 @@
       </td>
     </ng-container>
     <ng-container matColumnDef="change">
-      <th mat-header-cell *matHeaderCellDef>% Change</th>
+      <th mat-header-cell *matHeaderCellDef>Change</th>
       <td mat-cell *matCellDef="let nation"
           [ngClass]="changeClass(nation)">
         <div>
@@ -138,7 +140,9 @@
 
     <ng-container matColumnDef="sources">
       <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">Sources</th>
-      <td mat-cell *matCellDef="let nation">{{nation.name}}</td>
+      <td mat-cell *matCellDef="let nation">
+        W. I. P.
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="header-holdings">
