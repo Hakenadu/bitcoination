@@ -80,6 +80,11 @@ export class MapChartComponent implements AfterViewInit {
       this.worldSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
       this.worldSeries.exclude = ['AQ'];
       this.worldSeries.useGeodata = true;
+      this.worldSeries.draggable = false;
+      this.worldSeries.resizable = false;
+      this.chart.draggable = false;
+      this.chart.resizable = false;
+      this.chart.maxPanOut = 0;
 
       const polygonTemplate = this.worldSeries.mapPolygons.template;
       polygonTemplate.tooltipText = '{name}';
@@ -139,7 +144,7 @@ export class MapChartComponent implements AfterViewInit {
   }
 
   zoomOut(): void {
-    this.chart?.goHome();
+    this.browserOnly(() => this.chart?.goHome());
     this.positionModified.emit(false);
   }
 }
