@@ -24,10 +24,10 @@ import {AboutComponent} from './about/about.component';
 import {StatisticsTableComponent} from './map/statistics/table/statistics-table.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {PrivacyComponent} from './about/privacy/privacy.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { BitcoinPricesComponent } from './about/coingecko/bitcoin-prices.component';
-import { BtcPricePreviewComponent } from './map/btc-price-preview/btc-price-preview.component';
+import {BitcoinPricesComponent} from './about/coingecko/bitcoin-prices.component';
+import {BtcPricePreviewComponent} from './map/btc-price-preview/btc-price-preview.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +60,7 @@ import { BtcPricePreviewComponent } from './map/btc-price-preview/btc-price-prev
     MatomoModule,
     MatTooltipModule,
     ReactiveFormsModule,
+    FormsModule,
     MatCheckboxModule
   ],
   providers: [],

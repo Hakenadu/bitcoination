@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
 
 @Component({
@@ -8,9 +8,14 @@ import {FormControl} from '@angular/forms';
 export class PrivacyComponent implements OnInit {
   optedIn = new FormControl(null);
 
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
+
+  }
+
   ngOnInit() {
     this.updateOptOut();
     this.optedIn.valueChanges.subscribe(value => {
+      // @ts-ignore
       if (value) {
         // @ts-ignore
         _paq.push(['forgetUserOptOut']);
@@ -23,10 +28,13 @@ export class PrivacyComponent implements OnInit {
 
   private updateOptOut() {
     const formControl = this.optedIn;
+    const cdr = this.changeDetectorRef;
     // @ts-ignore
     _paq.push([function () {
       // @ts-ignore
-      formControl.setValue(!this.isUserOptedOut());
+      const userOptOut = !this.isUserOptedOut()
+      formControl.setValue(userOptOut);
+      cdr.detectChanges();
     }]);
   }
 

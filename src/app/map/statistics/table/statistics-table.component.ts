@@ -1,4 +1,15 @@
-import {Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  HostBinding,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 import {NationsDataSource} from '../map-statistics.component';
 import {Holding, Nation} from '../../services/nations.service';
 import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
@@ -7,6 +18,7 @@ import {Subject} from 'rxjs';
 import {MatPaginator} from '@angular/material/paginator';
 import {CurrencyPipe, DecimalPipe} from '@angular/common';
 import {PricesService} from '../../services/prices.service';
+import {MatTabGroup} from '@angular/material/tabs';
 
 const NOT_AVAILABLE_PLACEHOLDER = 'N/A';
 
@@ -19,7 +31,7 @@ const NOT_AVAILABLE_PLACEHOLDER = 'N/A';
     DecimalPipe
   ]
 })
-export class StatisticsTableComponent implements OnInit, OnDestroy {
+export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewInit {
   destroyed = new Subject<void>();
   holdingsTooltip = 'Official government or central bank holdings such as treasury reserves or publicly disclosed mining profits';
 
@@ -34,12 +46,17 @@ export class StatisticsTableComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator)
   private matPaginator?: MatPaginator;
+
+  @ViewChild(MatTabGroup, {static: false})
+  private matTabGroup?: MatTabGroup;
+
   private _tabbed = false;
 
   constructor(private pricesService: PricesService,
               private breakpointObserver: BreakpointObserver,
               private currencyPipe: CurrencyPipe,
-              private decimalPipe: DecimalPipe) {
+              private decimalPipe: DecimalPipe,
+              private changeDetectorRef: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -56,6 +73,11 @@ export class StatisticsTableComponent implements OnInit, OnDestroy {
         this.tabbed = false;
       }
     });
+  }
+
+  ngAfterViewInit() {
+    // TODO: Prüfen, warum dieser Timeout Hack hier notwendig ist -_-
+    setTimeout(() => this.matTabGroup?.realignInkBar(), 2000);
   }
 
   ngOnDestroy() {
