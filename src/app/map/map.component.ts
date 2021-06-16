@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, ViewChild} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Nation} from './services/nations.service';
 import {PurchasesComponent} from './purchases/purchases.component';
@@ -33,10 +33,7 @@ export class MapComponent {
   @ViewChild(MapChartComponent)
   mapChart?: MapChartComponent;
 
-  private _showResetMapButton = false;
-
-  constructor(private matDialog: MatDialog,
-              private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private matDialog: MatDialog) {
   }
 
   showPurchases(nation: Nation, zoomToNation: boolean): void {
@@ -48,17 +45,6 @@ export class MapComponent {
 
     if (zoomToNation) {
       this.mapChart?.zoomToNation(nation);
-    }
-  }
-
-  get showResetMapButton(): boolean {
-    return this._showResetMapButton;
-  }
-
-  set showResetMapButton(showResetMapButton: boolean) {
-    if (this._showResetMapButton !== showResetMapButton) {
-      this._showResetMapButton = showResetMapButton;
-      this.changeDetectorRef.detectChanges();
     }
   }
 }

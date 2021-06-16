@@ -31,9 +31,6 @@ export class MapChartComponent implements AfterViewInit {
   @Output()
   nationSelected = new EventEmitter<Nation>();
 
-  @Output()
-  positionModified = new EventEmitter<boolean>();
-
   private chart?: MapChart;
   private worldSeries?: am4maps.MapPolygonSeries;
 
@@ -62,34 +59,43 @@ export class MapChartComponent implements AfterViewInit {
       am4core.useTheme(am4themes_animated);
 
       this.chart = am4core.create(this.chartDiv?.nativeElement, am4maps.MapChart);
-      this.chart.zoomDuration = 200;
-      this.chart.tapToActivate = true;
-      this.chart.zoomEasing = am4core.ease.cubicInOut;
-      this.chart.zoomStep = 5;
-      this.chart.events.on('drag', ev => {
-        this.positionModified.emit(true);
-      });
-      this.chart.events.on('zoomlevelchanged', ev => {
-        this.positionModified.emit(this.chart?.zoomLevel !== 1);
-      });
-
       this.chart.geodata = am4geodata_worldLow;
-
       this.chart.projection = new am4maps.projections.Miller();
 
       this.worldSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
       this.worldSeries.exclude = ['AQ'];
       this.worldSeries.useGeodata = true;
-      this.worldSeries.draggable = false;
-      this.worldSeries.resizable = false;
-      this.chart.draggable = false;
-      this.chart.resizable = false;
-      this.chart.maxPanOut = 0;
+      this.chart.chartContainer.wheelable = false;
 
       const polygonTemplate = this.worldSeries.mapPolygons.template;
+      polygonTemplate.applyOnClones = true;
+      polygonTemplate.togglable = true;
       polygonTemplate.tooltipText = '{name}';
       polygonTemplate.fill = this.chart.colors.getIndex(0);
       polygonTemplate.nonScalingStroke = true;
+
+      this.chart.smallMap = new am4maps.SmallMap();
+      this.chart.smallMap.align = 'left';
+      this.chart.smallMap.valign = 'top';
+      this.chart.smallMap.marginTop = 14;
+      this.chart.smallMap.stroke = am4core.color('gray');
+      this.chart.smallMap.series.push(this.worldSeries);
+
+      this.chart.zoomControl = new am4maps.ZoomControl();
+
+      let homeButton = new am4core.Button();
+      homeButton.events.on("hit", () => this.chart?.goHome());
+
+      homeButton.icon = new am4core.Sprite();
+      homeButton.padding(7, 5, 7, 5);
+      homeButton.width = 30;
+      homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
+      homeButton.marginBottom = 10;
+      homeButton.parent = this.chart.zoomControl;
+      homeButton.insertBefore(this.chart.zoomControl.plusButton);
+
+      this.chart.maxPanOut = 0;
+      this.chart.draggable = false;
 
       const hs = polygonTemplate.states.create('hover');
       hs.properties.fill = am4core.color('#888888');
@@ -141,10 +147,5 @@ export class MapChartComponent implements AfterViewInit {
       return;
     }
     this.chart?.zoomToMapObject(nationPolygon);
-  }
-
-  zoomOut(): void {
-    this.browserOnly(() => this.chart?.goHome());
-    this.positionModified.emit(false);
   }
 }
