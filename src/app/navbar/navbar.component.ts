@@ -1,5 +1,6 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 export interface NavigationEntry {
   name: string;
@@ -38,7 +39,8 @@ export class NavbarComponent {
   @ViewChild('navbarToggleButton', {read: ElementRef})
   private navbarToggler: ElementRef<HTMLButtonElement> | undefined;
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private matSnackbar: MatSnackBar) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.hide();
@@ -68,5 +70,16 @@ export class NavbarComponent {
     this.navBarLocked = true;
     this._collapsed = collapsed;
     setTimeout(() => this.navBarLocked = false, 300);
+  }
+
+  showWipText(): void {
+    this.matSnackbar.open(
+      'This page is currently under construction. Doesn\'t harm to frequently visit us to check for updates ;-)',
+      'OK',
+      {
+        duration: 6500,
+        horizontalPosition: 'end'
+      }
+    );
   }
 }
