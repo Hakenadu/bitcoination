@@ -172,4 +172,12 @@ export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewIni
   get tabbed(): boolean {
     return this._tabbed;
   }
+
+  lol() {
+    alert('lol');
+  }
+
+  sourcesClicked($event: MouseEvent) {
+    $event.stopPropagation();
+  }
 }

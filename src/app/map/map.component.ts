@@ -39,6 +39,7 @@ export class MapComponent {
   showPurchases(nation: Nation, zoomToNation: boolean): void {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
+    dialogConfig.panelClass = 'btc-dialog';
 
     const dialogRef = this.matDialog.open(PopupComponent, dialogConfig);
     dialogRef.componentInstance.nation = nation;

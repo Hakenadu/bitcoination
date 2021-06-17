@@ -29,7 +29,7 @@ export class NationsService {
 
   constructor(private httpClient: HttpClient) {
     this.httpClient.get<Nation[]>(`${environment.strapiBaseUrl}/nations`, {
-      params: new HttpParams().set('status', 'legal')
+      params: new HttpParams().set('active', 'true')
     }).subscribe(nations => {
       this._nations.next(nations);
     });

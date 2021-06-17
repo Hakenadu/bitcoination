@@ -35,6 +35,14 @@
     .mat-cell {
       padding: 0.5em;
 
+      &.mat-column-sources {
+        ::ng-deep {
+          p:last-of-type {
+            margin-bottom: 0;
+          }
+        }
+      }
+
       &.mat-column-cost-basis, &.mat-column-btc, &.mat-column-current-value {
         text-align: right;
       }
