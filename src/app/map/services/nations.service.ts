@@ -6,11 +6,8 @@ import {map} from 'rxjs/operators';
 
 export interface Holding {
   id: number;
-  buy_date: Date;
-  amount: number;
   cost_basis: number;
-  sources_table: string;
-  sources_popup: string;
+  amount: number;
 }
 
 export interface Nation {
@@ -19,6 +16,8 @@ export interface Nation {
   holdings?: Holding[];
   name: string;
   code: string;
+  sources_table: string;
+  sources_popup: string;
 }
 
 @Injectable({

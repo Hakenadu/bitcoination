@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import {Nation} from './services/nations.service';
-import {PurchasesComponent} from './purchases/purchases.component';
+import {PopupComponent} from './popup/popup.component';
 import {MapChartComponent} from './chart/map-chart.component';
 import {animate, style, transition, trigger} from '@angular/animations';
 
@@ -40,7 +40,7 @@ export class MapComponent {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.autoFocus = true;
 
-    const dialogRef = this.matDialog.open(PurchasesComponent, dialogConfig);
+    const dialogRef = this.matDialog.open(PopupComponent, dialogConfig);
     dialogRef.componentInstance.nation = nation;
 
     if (zoomToNation) {

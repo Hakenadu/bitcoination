@@ -17,7 +17,7 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {HttpClientModule} from '@angular/common/http';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
-import {PurchasesComponent} from './map/purchases/purchases.component';
+import {PopupComponent} from './map/popup/popup.component';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatomoModule} from 'ngx-matomo';
 import {AboutComponent} from './about/about.component';
@@ -28,6 +28,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {BitcoinPricesComponent} from './about/coingecko/bitcoin-prices.component';
 import {BtcPricePreviewComponent} from './map/btc-price-preview/btc-price-preview.component';
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import {BtcPricePreviewComponent} from './map/btc-price-preview/btc-price-previe
     MapComponent,
     MapStatisticsComponent,
     MapChartComponent,
-    PurchasesComponent,
+    PopupComponent,
     AboutComponent,
     StatisticsTableComponent,
     PrivacyComponent,
@@ -61,7 +62,8 @@ import {BtcPricePreviewComponent} from './map/btc-price-preview/btc-price-previe
     MatTooltipModule,
     ReactiveFormsModule,
     FormsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MarkdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

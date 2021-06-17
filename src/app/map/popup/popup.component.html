@@ -1,0 +1,66 @@
+<ng-container *ngIf="nation">
+  <h1 mat-dialog-title>{{nation.name}}</h1>
+  <mat-dialog-content>
+
+    <h2 mat-dialog-title> Legal Tender </h2>
+
+    <mat-icon *ngIf="nation.status === 'legal'"
+              color="primary">
+      check
+    </mat-icon>
+    <mat-icon *ngIf="nation.status === 'not_legal'"
+              color="primary">
+      cancel
+    </mat-icon>
+
+
+    <h2 mat-dialog-title> Holdings </h2>
+
+    <table mat-table [dataSource]="nation?.holdings" class="mat-elevation-z8">
+
+      <!--- Note that these columns can be defined in any order.
+            The actual rendered columns are set as a property on the row definition" -->
+
+      <ng-container matColumnDef="cost_basis">
+        <th mat-header-cell *matHeaderCellDef> Cost Basis </th>
+        <td mat-cell *matCellDef="let holding"> {{holding.cost_basis}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> BTC </th>
+        <td mat-cell *matCellDef="let holding"> {{holding.amount}} </td>
+      </ng-container>
+
+
+      <!--
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> Current Value </th>
+        <td mat-cell *matCellDef="let element"> {{element.weight}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="symbol">
+        <th mat-header-cell *matHeaderCellDef> Change % </th>
+        <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>
+      </ng-container>
+      -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+
+
+    <h2 mat-dialog-title> Sources </h2>
+
+    <markdown ngPreserveWhitespaces>
+      {{nation.sources_popup}}
+    </markdown>
+
+  </mat-dialog-content>
+  <mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-raised-button
+            (click)="matDialogRef.close()">
+      Close
+    </button>
+  </mat-dialog-actions>
+</ng-container>
