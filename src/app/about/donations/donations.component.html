@@ -1,0 +1,32 @@
+<mat-card class="btc-no-margin">
+  <mat-card-header>
+    <mat-icon mat-card-avatar>volunteer_activism</mat-icon>
+    <mat-card-title>Donate?</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>
+      We develop this page in our free time.
+      Donations could increase the motivation to spend even more of it into implementing more features.
+      <mat-icon class="material-icons-outlined" inline>sentiment_very_satisfied</mat-icon>
+    </p>
+    <p>
+      Anyhow, if you (independently of any donations!) got ideas for fancy features for this page, please
+      <a href="mailto:hakenadu91@gmail.com">mail us</a>.
+    </p>
+    <div class="w-100 text-center pt-3">
+      <img src="assets/images/donations.jpeg"
+           class="w-50 h-auto"
+           [cdkCopyToClipboard]="donateId"
+           (click)="showClipboardCopyText()"/>
+      <div class="d-flex flex-row align-items-center justify-content-center pt-3">
+        <span class="pr-2">{{donateId}}</span>
+        <button [cdkCopyToClipboard]="donateId"
+                mat-icon-button
+                class="text-center"
+                (click)="showClipboardCopyText()">
+          <mat-icon class="material-icons-outlined">content_copy</mat-icon>
+        </button>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

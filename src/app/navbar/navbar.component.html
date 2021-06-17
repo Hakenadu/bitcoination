@@ -4,6 +4,14 @@
     <img [height]="28" [width]="28" src="../../assets/images/bitcoin.png"/>itcoinations
   </a>
 
+  <div class="flex-grow-1 d-flex justify-content-end pe-3">
+    <button mat-flat-button
+            color="primary">
+      W. I. P.
+      <mat-icon class="ps-2">construction</mat-icon>
+    </button>
+  </div>
+
   <button #navbarToggleButton
           mat-icon-button
           class="navbar-toggler collapsed"
@@ -16,7 +24,7 @@
     <span class="icon-bar bottom-bar"></span>
   </button>
 
-  <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse justify-content-end flex-grow-0" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <a *ngFor="let navigationEntry of navigationEntries"
          class="nav-item p-2 text-start text-dark"

@@ -28,7 +28,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {BitcoinPricesComponent} from './about/coingecko/bitcoin-prices.component';
 import {BtcPricePreviewComponent} from './map/btc-price-preview/btc-price-preview.component';
-import { MarkdownModule } from 'ngx-markdown';
+import {MarkdownModule} from 'ngx-markdown';
+import {DonationsComponent} from './about/donations/donations.component';
+import {WorldMapComponent} from './about/world-map/world-map.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,9 @@ import { MarkdownModule } from 'ngx-markdown';
     StatisticsTableComponent,
     PrivacyComponent,
     BitcoinPricesComponent,
-    BtcPricePreviewComponent
+    BtcPricePreviewComponent,
+    DonationsComponent,
+    WorldMapComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +69,9 @@ import { MarkdownModule } from 'ngx-markdown';
     ReactiveFormsModule,
     FormsModule,
     MatCheckboxModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    ClipboardModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

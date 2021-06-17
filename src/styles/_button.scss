@@ -1,7 +1,9 @@
 .mat-button-base {
 
-  .mat-button-wrapper {
-    display: flex !important;
-    align-items: center !important;
+  &:not(.mat-icon-button) {
+    .mat-button-wrapper {
+      display: flex !important;
+      align-items: center !important;
+    }
   }
 }
