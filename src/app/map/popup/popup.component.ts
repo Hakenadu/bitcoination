@@ -1,19 +1,87 @@
 import {Component, Input} from '@angular/core';
-import {Nation} from '../services/nations.service';
+import {Holding, Nation} from '../services/nations.service';
 import {MatDialogRef} from '@angular/material/dialog';
+import {PricesService} from '../services/prices.service';
+import {CurrencyPipe, DecimalPipe} from '@angular/common';
 
+
+const NOT_AVAILABLE_PLACEHOLDER = 'N/A';
 
 @Component({
   templateUrl: './popup.component.html',
-  styleUrls: ['./popup.component.scss']
+  styleUrls: ['./popup.component.scss'],
+  providers: [
+    CurrencyPipe,
+    DecimalPipe
+  ]
 })
 export class PopupComponent {
 
   @Input()
   public nation?: Nation;
-  displayedColumns: string[] = ['cost_basis', 'amount'];
+  displayedColumns: string[] = ['cost_basis', 'amount', 'current-value', 'change'];
 
-  constructor(public matDialogRef: MatDialogRef<PopupComponent>) {
+  constructor(public matDialogRef: MatDialogRef<PopupComponent>,
+              private pricesService: PricesService,
+              private currencyPipe: CurrencyPipe,
+              private decimalPipe: DecimalPipe
+  ) {
+
   }
 
+  currentValueDisplayString(holding: Holding): string {
+    return this.formatValue(this.currentValue(holding), input => this.currencyPipe.transform(input));
+  }
+
+  private formatValue(value: number | undefined, transform: (input: string) => string | null): string {
+    if (value === undefined) {
+      return NOT_AVAILABLE_PLACEHOLDER;
+    }
+    const formatted = transform(value.toString());
+    if (formatted === null) {
+      throw new Error('no value after formatting');
+    }
+    return formatted;
+  }
+
+  currentValue(holding: Holding): number | undefined {
+    const bitcoinPrice = this.pricesService.bitcoinPrice.value;
+    if (bitcoinPrice !== null) {
+      return holding.amount * bitcoinPrice;
+    }
+    return undefined;
+  }
+
+
+  change(holding: Holding): number | undefined {
+    const costBasis = holding.cost_basis;
+    const currentValue = this.currentValue(holding);
+    if (costBasis === undefined || currentValue === undefined) {
+      return undefined;
+    }
+    return (currentValue / costBasis) * 100;
+  }
+
+
+  changeClass(holding: Holding): { [klass: string]: any } {
+    const change = this.change(holding);
+    return {
+      'text-success': change !== undefined && change > 0,
+      'text-danger': change !== undefined && change < 0
+    };
+  }
+
+  changePositive(holding: Holding): boolean {
+    const change = this.change(holding);
+    return change !== undefined && change > 0;
+  }
+
+  changeNegative(holding: Holding): boolean {
+    const change = this.change(holding);
+    return change !== undefined && change < 0;
+  }
+
+  changeDisplayString(holding: Holding): string {
+    return this.formatValue(this.change(holding), input => `${this.decimalPipe.transform(input, '4.1-5')}%`);
+  }
 }

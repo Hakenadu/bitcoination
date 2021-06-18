@@ -36,8 +36,9 @@ export class MapComponent {
   constructor(private matDialog: MatDialog) {
   }
 
-  showPurchases(nation: Nation, zoomToNation: boolean): void {
+  showDetailPopup(nation: Nation, zoomToNation: boolean): void {
     const dialogConfig = new MatDialogConfig();
+    dialogConfig.width = '60%';
     dialogConfig.autoFocus = true;
     dialogConfig.panelClass = 'btc-dialog';
 

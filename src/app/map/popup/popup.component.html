@@ -12,19 +12,32 @@
     <ng-container *ngIf="nation.holdings && nation.holdings.length>0">
       <h2 mat-dialog-title>Holdings</h2>
 
-      <table mat-table [dataSource]="nation.holdings" class="mat-elevation-z8">
+      <table mat-table [dataSource]="nation.holdings" class="mat-elevation-z8"   width="100%">
 
-        <!--- Note that these columns can be defined in any order.
-              The actual rendered columns are set as a property on the row definition" -->
 
         <ng-container matColumnDef="cost_basis">
-          <th mat-header-cell *matHeaderCellDef> Cost Basis</th>
+          <th mat-header-cell *matHeaderCellDef> Cost Basis </th>
           <td mat-cell *matCellDef="let holding"> {{holding.cost_basis}} </td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef> BTC</th>
+          <th mat-header-cell *matHeaderCellDef> BTC </th>
           <td mat-cell *matCellDef="let holding"> {{holding.amount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="current-value">
+          <th mat-header-cell *matHeaderCellDef> Current Value </th>
+          <td mat-cell *matCellDef="let holding">    {{currentValueDisplayString(holding)}}   </td>
+        </ng-container>
+
+        <ng-container matColumnDef="change">
+          <th mat-header-cell *matHeaderCellDef> Change </th>
+          <td mat-cell *matCellDef="let holding">
+            <mat-icon *ngIf="changePositive(holding)">trending_up</mat-icon>
+            <mat-icon *ngIf="changeNegative(holding)">trending_down</mat-icon>
+            {{changeDisplayString(holding)}}
+
+          </td>
         </ng-container>
 
 
