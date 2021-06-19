@@ -17,7 +17,6 @@ import {MapChart, MapPolygon} from '@amcharts/amcharts4/maps';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
 import {Nation, NationsService} from '../services/nations.service';
 import {map} from 'rxjs/operators';
-import {Percent} from '@amcharts/amcharts4/core';
 
 @Component({
   selector: 'btc-map-chart',
@@ -82,17 +81,11 @@ export class MapChartComponent implements AfterViewInit {
       this.chart.smallMap.series.push(this.worldSeries);
 
       this.chart.zoomControl = new am4maps.ZoomControl();
+      this.setButtonIconPath(this.chart.zoomControl.plusButton, 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zm.5-7H9v2H7v1h2v2h1v-2h2V9h-2z');
+      this.setButtonIconPath(this.chart.zoomControl.minusButton, 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM7 9h5v1H7z');
 
-      let homeButton = new am4core.Button();
-      homeButton.events.on("hit", () => this.chart?.goHome());
-
-      homeButton.icon = new am4core.Sprite();
-      homeButton.padding(7, 5, 7, 5);
-      homeButton.width = 30;
-      homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
-      homeButton.marginBottom = 10;
-      homeButton.parent = this.chart.zoomControl;
-      homeButton.insertBefore(this.chart.zoomControl.plusButton);
+      this.addToggleSmallMapButton(this.chart);
+      this.addHomeButton(this.chart);
 
       this.chart.maxPanOut = 0;
       this.chart.draggable = false;
@@ -147,5 +140,32 @@ export class MapChartComponent implements AfterViewInit {
       return;
     }
     this.chart?.zoomToMapObject(nationPolygon);
+  }
+
+  private addHomeButton(chart: am4maps.MapChart) {
+    const homeButton = new am4core.Button();
+    homeButton.events.on('hit', () => this.chart?.goHome());
+    this.setButtonIconPath(homeButton, 'M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3h-6zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3v6zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6h6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6v-6z');
+    homeButton.width = 30;
+    homeButton.marginBottom = 3;
+    homeButton.parent = chart.zoomControl;
+    homeButton.insertBefore(chart.zoomControl.plusButton);
+  }
+
+  private addToggleSmallMapButton(chart: am4maps.MapChart) {
+    const homeButton = new am4core.Button();
+    homeButton.events.on('hit', () => chart.smallMap.disabled = !chart.smallMap.disabled);
+    this.setButtonIconPath(homeButton, 'M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM10 5.47l4 1.4v11.66l-4-1.4V5.47zm-5 .99l3-1.01v11.7l-3 1.16V6.46zm14 11.08l-3 1.01V6.86l3-1.16v11.84z');
+    homeButton.width = 30;
+    homeButton.marginBottom = 3;
+    homeButton.parent = chart.zoomControl;
+    homeButton.insertBefore(chart.zoomControl.plusButton);
+  }
+
+  private setButtonIconPath(button: am4core.Button, path: string) {
+    button.padding(7, 5, 7, 5);
+    button.label = undefined;
+    button.icon = new am4core.Sprite();
+    button.icon.path = path;
   }
 }
