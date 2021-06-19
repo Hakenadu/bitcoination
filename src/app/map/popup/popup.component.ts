@@ -52,16 +52,14 @@ export class PopupComponent {
     return undefined;
   }
 
-
   change(holding: Holding): number | undefined {
     const costBasis = holding.cost_basis;
     const currentValue = this.currentValue(holding);
-    if (costBasis === undefined || currentValue === undefined) {
+    if (costBasis === undefined || costBasis === null || currentValue === undefined || costBasis === 0) {
       return undefined;
     }
     return (currentValue / costBasis) * 100;
   }
-
 
   changeClass(holding: Holding): { [klass: string]: any } {
     const change = this.change(holding);

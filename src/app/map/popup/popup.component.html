@@ -4,39 +4,37 @@
 
     <h2 mat-dialog-title> Legal Tender </h2>
 
-    <mat-icon *ngIf="nation.status === 'legal'"
-              color="primary">
+    <mat-icon color="primary">
       {{nation.status === 'legal' ? 'check' : 'cancel'}}
     </mat-icon>
 
     <ng-container *ngIf="nation.holdings && nation.holdings.length>0">
       <h2 mat-dialog-title>Holdings</h2>
 
-      <table mat-table [dataSource]="nation.holdings" class="mat-elevation-z8"   width="100%">
+      <table mat-table [dataSource]="nation.holdings" class="mat-elevation-z1" width="100%">
 
 
         <ng-container matColumnDef="cost_basis">
-          <th mat-header-cell *matHeaderCellDef> Cost Basis </th>
-          <td mat-cell *matCellDef="let holding"> {{holding.cost_basis}} </td>
+          <th mat-header-cell *matHeaderCellDef>Cost Basis</th>
+          <td mat-cell *matCellDef="let holding">{{holding.cost_basis}}</td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
-          <th mat-header-cell *matHeaderCellDef> BTC </th>
-          <td mat-cell *matCellDef="let holding"> {{holding.amount}} </td>
+          <th mat-header-cell *matHeaderCellDef>BTC</th>
+          <td mat-cell *matCellDef="let holding">{{holding.amount}}</td>
         </ng-container>
 
         <ng-container matColumnDef="current-value">
-          <th mat-header-cell *matHeaderCellDef> Current Value </th>
-          <td mat-cell *matCellDef="let holding">    {{currentValueDisplayString(holding)}}   </td>
+          <th mat-header-cell *matHeaderCellDef>Current Value</th>
+          <td mat-cell *matCellDef="let holding">{{currentValueDisplayString(holding)}}</td>
         </ng-container>
 
         <ng-container matColumnDef="change">
-          <th mat-header-cell *matHeaderCellDef> Change </th>
+          <th mat-header-cell *matHeaderCellDef>Change</th>
           <td mat-cell *matCellDef="let holding">
             <mat-icon *ngIf="changePositive(holding)">trending_up</mat-icon>
             <mat-icon *ngIf="changeNegative(holding)">trending_down</mat-icon>
             {{changeDisplayString(holding)}}
-
           </td>
         </ng-container>
 
@@ -58,11 +56,13 @@
       </table>
     </ng-container>
 
-    <h2 mat-dialog-title> Sources </h2>
+    <ng-container *ngIf="nation.sources_popup">
+      <h2 mat-dialog-title> Sources </h2>
 
-    <markdown ngPreserveWhitespaces>
-      {{nation.sources_popup}}
-    </markdown>
+      <markdown ngPreserveWhitespaces>
+        {{nation.sources_popup}}
+      </markdown>
+    </ng-container>
 
   </mat-dialog-content>
   <mat-dialog-actions class="d-flex justify-content-end">

@@ -116,7 +116,7 @@ export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewIni
   change(nation: Nation): number | undefined {
     const costBasis = this.costBasis(nation);
     const currentValue = this.currentValue(nation);
-    if (costBasis === undefined || currentValue === undefined) {
+    if (costBasis === undefined || currentValue === undefined || costBasis === 0) {
       return undefined;
     }
     return (currentValue / costBasis) * 100;
