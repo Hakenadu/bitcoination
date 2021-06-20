@@ -16,8 +16,8 @@
         }
 
         padding: 0.5em;
-        border-bottom: 1px solid gray;
-        border-right: 1px solid gray;
+        border-bottom: 2px solid rgb(248, 249, 250);
+        border-right: 2px solid rgb(248, 249, 250);
       }
 
       min-height: unset;
@@ -40,6 +40,7 @@
 
       .mat-cell {
         padding: 0.5em;
+        border-bottom-width: 2px;
 
         &.mat-column-sources {
           ::ng-deep {
