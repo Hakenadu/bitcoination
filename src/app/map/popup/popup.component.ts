@@ -1,8 +1,9 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, Input, ViewChild} from '@angular/core';
 import {Holding, Nation} from '../services/nations.service';
 import {MatDialogRef} from '@angular/material/dialog';
 import {PricesService} from '../services/prices.service';
 import {CurrencyPipe, DecimalPipe} from '@angular/common';
+import {MarkdownService} from 'ngx-markdown';
 
 
 const NOT_AVAILABLE_PLACEHOLDER = 'N/A';
@@ -17,6 +18,7 @@ const NOT_AVAILABLE_PLACEHOLDER = 'N/A';
 })
 export class PopupComponent {
 
+
   @Input()
   public nation?: Nation;
   displayedColumns: string[] = ['cost_basis', 'amount', 'current-value', 'change'];
@@ -24,8 +26,15 @@ export class PopupComponent {
   constructor(public matDialogRef: MatDialogRef<PopupComponent>,
               private pricesService: PricesService,
               private currencyPipe: CurrencyPipe,
-              private decimalPipe: DecimalPipe
+              private decimalPipe: DecimalPipe,
+              public markdownService: MarkdownService
   ) {
+
+    this.markdownService.renderer.link = (href: string, title: string, text: string) => {
+      const escapedText = text?.toLowerCase().replace(/[^\w]+/g, '-');
+      const escapedHref = href?.toLowerCase().replace(/[^\w]+/g, '-');
+      return '<a href="' + href + '" target="_blank">  ' + text + '</a> ';
+    };
 
   }
 

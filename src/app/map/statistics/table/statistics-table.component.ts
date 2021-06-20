@@ -18,6 +18,7 @@ import {MatPaginator} from '@angular/material/paginator';
 import {CurrencyPipe, DecimalPipe} from '@angular/common';
 import {PricesService} from '../../services/prices.service';
 import {MatTabGroup} from '@angular/material/tabs';
+import {MarkdownService} from 'ngx-markdown';
 
 const NOT_AVAILABLE_PLACEHOLDER = 'N/A';
 
@@ -54,7 +55,8 @@ export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewIni
   constructor(private pricesService: PricesService,
               private breakpointObserver: BreakpointObserver,
               private currencyPipe: CurrencyPipe,
-              private decimalPipe: DecimalPipe) {
+              private decimalPipe: DecimalPipe,
+              public markdownService: MarkdownService) {
   }
 
   ngOnInit() {
@@ -71,6 +73,12 @@ export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewIni
         this.tabbed = false;
       }
     });
+
+    this.markdownService.renderer.link = (href: string, title: string, text: string) => {
+      const escapedText = text?.toLowerCase().replace(/[^\w]+/g, '-');
+      const escapedHref = href?.toLowerCase().replace(/[^\w]+/g, '-');
+      return '<a href="' + href + '" target="_blank">  ' + text + '</a> ';
+    };
   }
 
   ngAfterViewInit() {

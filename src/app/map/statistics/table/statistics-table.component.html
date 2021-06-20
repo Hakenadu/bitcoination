@@ -28,9 +28,9 @@
         <ng-container matColumnDef="sources">
           <th mat-header-cell *matHeaderCellDef [attr.rowspan]="2">Sources</th>
           <td mat-cell *matCellDef="let nation">
-            <markdown ngPreserveWhitespaces>
-              {{nation.sources_table}}
-            </markdown>
+            <div [innerHTML]="markdownService.compile(nation.sources_table)">
+
+            </div>
           </td>
         </ng-container>
 

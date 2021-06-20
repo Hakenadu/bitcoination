@@ -67,10 +67,9 @@
 
     <ng-container *ngIf="nation.sources_popup">
       <h2 mat-dialog-title>Sources</h2>
+      <div [innerHTML]="markdownService.compile(nation.sources_popup)">
 
-      <markdown ngPreserveWhitespaces>
-        {{nation.sources_popup}}
-      </markdown>
+      </div>
     </ng-container>
 
   </mat-dialog-content>
