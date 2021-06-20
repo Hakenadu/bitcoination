@@ -63,14 +63,20 @@ export class AppComponent {
   }
 
   private updateTheme(): void {
+    let classToAdd: string;
+    let classToRemove: string;
+
     if (this.configService.darkmode) {
-      this.overlayContainer.getContainerElement().classList.remove('light-theme');
-      this.overlayContainer.getContainerElement().classList.add('dark-theme');
-      this.componentCssClass = 'dark-theme';
+      classToAdd = 'dark-theme';
+      classToRemove = 'light-theme';
     } else {
-      this.overlayContainer.getContainerElement().classList.remove('dark-theme');
-      this.overlayContainer.getContainerElement().classList.add('light-theme');
-      this.componentCssClass = 'light-theme';
+      classToAdd = 'light-theme';
+      classToRemove = 'dark-theme';
     }
+
+    this.overlayContainer.getContainerElement().classList.remove(classToRemove);
+    this.overlayContainer.getContainerElement().classList.add(classToAdd);
+    document.body.classList.remove(classToRemove);
+    document.body.classList.add(classToAdd);
   }
 }

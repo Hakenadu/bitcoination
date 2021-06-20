@@ -208,6 +208,7 @@ export class MapChartComponent implements AfterViewInit {
       button.background.fill = am4core.color('#BCBCBC');
       button.fill = am4core.color('#000000');
     }
+    button.stroke = button.background.fill;
   }
 
   private setButtonIconPath(button: am4core.Button, path: string): void {
