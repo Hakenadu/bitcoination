@@ -47,16 +47,17 @@
           text-align: right;
         }
 
-        &.mat-column-change {
-          & > div {
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            align-items: center;
+        &.mat-column-change > div, &.mat-column-status > div {
+          display: flex;
+          align-items: center;
+        }
 
-            .mat-icon {
-              margin-right: 4px;
-            }
+        &.mat-column-change > div {
+          flex-direction: row;
+          justify-content: flex-end;
+
+          .mat-icon {
+            margin-right: 4px;
           }
         }
       }
