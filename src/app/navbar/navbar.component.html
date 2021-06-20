@@ -1,6 +1,9 @@
-<nav class="navbar navbar-expand-lg bg-light fixed-top px-2">
+<nav class="navbar navbar-expand-lg fixed-top px-2"
+     [ngClass]="{'bg-dark':configService.darkmode,'bg-light':!configService.darkmode}">
 
-  <a class="navbar-brand text-dark" routerLink="/map">
+  <a class="navbar-brand"
+     [ngClass]="{'text-light':configService.darkmode,'text-dark':!configService.darkmode}"
+     routerLink="/map">
     <img [height]="28" [width]="28" src="../../assets/images/bitcoin.png"/>itcoinations
   </a>
 
@@ -28,13 +31,22 @@
   <div class="collapse navbar-collapse justify-content-end flex-grow-0" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
       <a *ngFor="let navigationEntry of navigationEntries"
-         class="nav-item p-2 text-start text-dark"
+         class="nav-item p-2 text-start ms-0 ms-md-2 mt-2 mt-md-0"
          mat-flat-button
-         [ngClass]="{'active':isActivated(navigationEntry)}"
+         [ngClass]="{'btc-active':isActivated(navigationEntry)}"
          [routerLink]="navigationEntry.path">
         <mat-icon class="material-icons-outlined">{{navigationEntry.icon}}</mat-icon>
         {{navigationEntry.name}}
       </a>
+      <button class="btc-theme-toggle nav-item p-2 text-start ms-0 ms-md-2 mt-2 mt-md-0"
+              mat-flat-button
+              [ngClass]="{'btc-lightmode-button':configService.darkmode,'btc-darkmode-button':!configService.darkmode}"
+              (click)="configService.darkmode=!configService.darkmode">
+        <mat-icon class="material-icons-outlined">
+          {{configService.darkmode ? 'light_mode' : 'dark_mode'}}
+        </mat-icon>
+        {{configService.darkmode ? 'Enable Light Mode' : 'Enable Dark Mode'}}
+      </button>
     </ul>
   </div>
 

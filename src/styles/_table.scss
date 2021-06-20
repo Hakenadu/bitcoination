@@ -1,0 +1,37 @@
+.light-theme {
+  .mat-table {
+    .mat-header-row {
+      background-color: lightgray;
+
+      .mat-header-cell {
+        border-bottom: 2px solid white;
+        border-right: 2px solid white;
+      }
+    }
+
+    .mat-row {
+      &:hover {
+        background-color: #eae8e8;
+      }
+    }
+  }
+}
+
+.dark-theme {
+  .mat-table {
+    .mat-header-row {
+      background-color: #4b4747;
+
+      .mat-header-cell {
+        border-bottom: 2px solid #424242;
+        border-right: 2px solid #424242;
+      }
+    }
+
+    .mat-row {
+      &:hover {
+        background-color: #4c4c4c;
+      }
+    }
+  }
+}

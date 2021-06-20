@@ -4,12 +4,10 @@
   .nav-item {
     padding: 0px 5px !important;
 
-    &.active {
-      background-color: #d9d6d6;
-    }
-
-    &:not(.active) {
-      background-color: transparent;
+    &.btc-active {
+      border-bottom: 2px solid #ff9900;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
     }
   }
 
@@ -129,5 +127,23 @@
   .navbar-toggler[aria-expanded="false"] .bottom-bar {
     transform: rotate(0);
     transform-origin: 0% 50%;
+  }
+}
+
+.btc-theme-toggle {
+
+  .mat-icon {
+    color: #ff9900;
+    margin-right: 5px;
+  }
+
+  &.btc-darkmode-button {
+    background-color: #424242 !important;
+    color: white !important;
+  }
+
+  &.btc-lightmode-button {
+    background-color: white !important;
+    color: #424242 !important;
   }
 }
