@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import * as am4core from '@amcharts/amcharts4/core';
+import {MouseCursorStyle} from '@amcharts/amcharts4/core';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import {MapChart, MapPolygon} from '@amcharts/amcharts4/maps';
@@ -64,7 +65,9 @@ export class MapChartComponent implements AfterViewInit {
       this.worldSeries = this.chart.series.push(new am4maps.MapPolygonSeries());
       this.worldSeries.exclude = ['AQ'];
       this.worldSeries.useGeodata = true;
+
       this.chart.chartContainer.wheelable = false;
+      this.chart.chartContainer.cursorDownStyle = MouseCursorStyle.grabbing;
 
       const polygonTemplate = this.worldSeries.mapPolygons.template;
       polygonTemplate.applyOnClones = true;
