@@ -5,6 +5,8 @@ h2 {
 }
 
 .btc-popup-table {
+  display: block;
+  overflow-x: auto;
 
   th, td {
     white-space: nowrap;

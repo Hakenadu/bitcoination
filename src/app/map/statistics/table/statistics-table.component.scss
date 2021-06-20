@@ -1,5 +1,10 @@
 .btc-statistics-table {
   .mat-table {
+    th, td {
+      white-space: nowrap;
+      padding: 0.5em;
+    }
+
     background-color: inherit;
 
     .mat-header-row {

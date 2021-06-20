@@ -1,5 +1,5 @@
 .btc-dialog {
   min-width: 300px;
-  max-width: 90vw !important;
-  width: 80% !important;
+  max-width: calc(100vw - 1em) !important;
+  width: auto !important;
 }
