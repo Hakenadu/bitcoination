@@ -1,6 +1,5 @@
 import {
   AfterViewInit,
-  ChangeDetectorRef,
   Component,
   EventEmitter,
   HostBinding,
@@ -55,8 +54,7 @@ export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewIni
   constructor(private pricesService: PricesService,
               private breakpointObserver: BreakpointObserver,
               private currencyPipe: CurrencyPipe,
-              private decimalPipe: DecimalPipe,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private decimalPipe: DecimalPipe) {
   }
 
   ngOnInit() {

@@ -33,8 +33,8 @@ export class PopupComponent {
     return this.formatValue(this.currentValue(holding), input => this.currencyPipe.transform(input));
   }
 
-  private formatValue(value: number | undefined, transform: (input: string) => string | null): string {
-    if (value === undefined) {
+  private formatValue(value: number | undefined | null, transform: (input: string) => string | null): string {
+    if (value === undefined || value === null) {
       return NOT_AVAILABLE_PLACEHOLDER;
     }
     const formatted = transform(value.toString());
@@ -50,6 +50,14 @@ export class PopupComponent {
       return holding.amount * bitcoinPrice;
     }
     return undefined;
+  }
+
+  amountDisplayString(holding: Holding): string {
+    return this.formatValue(holding.amount, input => this.currencyPipe.transform(input, '\u20bf'));
+  }
+
+  costBasisDisplayString(holding: Holding): string {
+    return this.formatValue(holding.cost_basis, input => this.currencyPipe.transform(input));
   }
 
   change(holding: Holding): number | undefined {

@@ -21,12 +21,16 @@
 
         <ng-container matColumnDef="cost_basis">
           <th mat-header-cell *matHeaderCellDef>Cost Basis</th>
-          <td mat-cell *matCellDef="let holding">{{holding.cost_basis}}</td>
+          <td mat-cell *matCellDef="let holding">
+            {{costBasisDisplayString(holding)}}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="amount">
           <th mat-header-cell *matHeaderCellDef>BTC</th>
-          <td mat-cell *matCellDef="let holding">{{holding.amount}}</td>
+          <td mat-cell *matCellDef="let holding">
+            {{amountDisplayString(holding)}}
+          </td>
         </ng-container>
 
         <ng-container matColumnDef="current-value">
