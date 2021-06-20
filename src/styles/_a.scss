@@ -2,9 +2,12 @@ a {
   color: #ff9900;
 }
 
-/* visited link */
-a:visited {
-  color: gray;
+.light-theme a:visited {
+  color: #424242;
+}
+
+.dark-theme a:visited {
+  color: white;
 }
 
 /* mouse over link */

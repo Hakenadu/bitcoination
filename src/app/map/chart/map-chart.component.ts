@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import {isPlatformBrowser} from '@angular/common';
 import * as am4core from '@amcharts/amcharts4/core';
-import {MouseCursorStyle} from '@amcharts/amcharts4/core';
+import {BaseObject, MouseCursorStyle} from '@amcharts/amcharts4/core';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
 import * as am4maps from '@amcharts/amcharts4/maps';
 import {MapChart, MapPolygon} from '@amcharts/amcharts4/maps';
@@ -45,6 +45,13 @@ export class MapChartComponent implements AfterViewInit {
       }
       this.chart.smallMap.disabled = !showMinimap;
     });
+    this.configService.darkmode$.subscribe(darkmode => {
+      if (!this.chart) {
+        return;
+      }
+      // recreate chart
+      this.ngAfterViewInit();
+    });
   }
 
   browserOnly(f: () => void): void {
@@ -55,15 +62,23 @@ export class MapChartComponent implements AfterViewInit {
     }
   }
 
+  private customTheme(target: BaseObject): void {
+    if (target instanceof am4core.ColorSet) {
+      if (this.configService.darkmode) {
+        target.list = [
+          am4core.color('#939393')
+        ];
+      } else {
+        target.list = [
+          am4core.color('#BCBCBC')
+        ];
+      }
+    }
+  }
+
   ngAfterViewInit(): void {
     this.browserOnly(() => {
-      am4core.useTheme((target) => {
-        if (target instanceof am4core.ColorSet) {
-          target.list = [
-            am4core.color('#BCBCBC')
-          ];
-        }
-      });
+      am4core.useTheme(this.customTheme.bind(this));
       am4core.useTheme(am4themes_animated);
 
       this.chart = am4core.create(this.chartDiv?.nativeElement, am4maps.MapChart);
@@ -82,6 +97,7 @@ export class MapChartComponent implements AfterViewInit {
       polygonTemplate.togglable = true;
       polygonTemplate.tooltipText = '{name}';
       polygonTemplate.fill = this.chart.colors.getIndex(0);
+      polygonTemplate.stroke = am4core.color(this.configService.darkmode ? 'rgb(66,66,66)' : 'rgb(255,255,255)');
       polygonTemplate.nonScalingStroke = true;
 
       this.chart.smallMap = new am4maps.SmallMap();
@@ -93,10 +109,14 @@ export class MapChartComponent implements AfterViewInit {
       this.chart.smallMap.series.push(this.worldSeries);
 
       this.chart.zoomControl = new am4maps.ZoomControl();
+
       this.chart.zoomControl.plusButton.tooltipText = 'Zoom in';
-      this.chart.zoomControl.minusButton.tooltipText = 'Zoom out';
       this.setButtonIconPath(this.chart.zoomControl.plusButton, 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zm.5-7H9v2H7v1h2v2h1v-2h2V9h-2z');
+      this.setButtonStyle(this.chart.zoomControl.plusButton);
+
+      this.chart.zoomControl.minusButton.tooltipText = 'Zoom out';
       this.setButtonIconPath(this.chart.zoomControl.minusButton, 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14zM7 9h5v1H7z');
+      this.setButtonStyle(this.chart.zoomControl.minusButton);
 
       this.addToggleSmallMapButton(this.chart);
       this.addHomeButton(this.chart);
@@ -164,6 +184,7 @@ export class MapChartComponent implements AfterViewInit {
     homeButton.marginBottom = 3;
     homeButton.parent = chart.zoomControl;
     homeButton.tooltipText = 'Reset zoom';
+    this.setButtonStyle(homeButton);
     homeButton.insertBefore(chart.zoomControl.plusButton);
   }
 
@@ -175,7 +196,18 @@ export class MapChartComponent implements AfterViewInit {
     toggleSmallMapButton.marginBottom = 3;
     toggleSmallMapButton.parent = chart.zoomControl;
     toggleSmallMapButton.tooltipText = 'Toggle minimap';
+    this.setButtonStyle(toggleSmallMapButton);
     toggleSmallMapButton.insertBefore(chart.zoomControl.plusButton);
+  }
+
+  private setButtonStyle(button: am4core.Button): void {
+    if (this.configService.darkmode) {
+      button.background.fill = am4core.color('#424242');
+      button.fill = am4core.color('#FFFFFF');
+    } else {
+      button.background.fill = am4core.color('#BCBCBC');
+      button.fill = am4core.color('#000000');
+    }
   }
 
   private setButtonIconPath(button: am4core.Button, path: string): void {
