@@ -1,76 +1,99 @@
-.mat-table {
-  background-color: inherit;
+.btc-statistics-table {
+  .mat-table {
+    background-color: inherit;
 
-  .mat-header-row {
+    .mat-header-row {
 
-    .mat-header-cell {
+      .mat-header-cell {
 
-      &.mat-column-cost-basis, &.mat-column-btc, &.mat-column-current-value, &.mat-column-change {
-        text-align: right;
+        &.mat-column-cost-basis, &.mat-column-btc, &.mat-column-current-value, &.mat-column-change {
+          text-align: right;
+        }
+
+        padding: 0.5em;
+        border-bottom: 1px solid gray;
+        border-right: 1px solid gray;
       }
 
-      padding: 0.5em;
-      border-bottom: 1px solid gray;
-      border-right: 1px solid gray;
+      min-height: unset;
+      height: unset;
+      background-color: lightgray;
     }
 
-    min-height: unset;
-    height: unset;
-    background-color: lightgray;
-  }
+    .mat-row {
+      min-height: unset;
+      cursor: pointer;
+      transition: background-color 150ms ease-in-out;
 
-  .mat-row {
-    min-height: unset;
-    cursor: pointer;
-    transition: background-color 150ms ease-in-out;
+      &:hover {
+        background-color: #eae8e8;
+      }
 
-    &:hover {
-      background-color: #eae8e8;
-    }
+      &:active {
+        background-color: rgba(255, 153, 0, 0.5);
+      }
 
-    &:active {
-      background-color: rgba(255, 153, 0, 0.5);
-    }
+      .mat-cell {
+        padding: 0.5em;
 
-    .mat-cell {
-      padding: 0.5em;
+        &.mat-column-sources {
+          ::ng-deep {
+            p:last-of-type {
+              margin-bottom: 0;
+            }
+          }
+        }
 
-      &.mat-column-sources {
-        ::ng-deep {
-          p:last-of-type {
-            margin-bottom: 0;
+        &.mat-column-cost-basis, &.mat-column-btc, &.mat-column-current-value {
+          text-align: right;
+        }
+
+        &.mat-column-change {
+          & > div {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+
+            .mat-icon {
+              margin-right: 4px;
+            }
           }
         }
       }
+    }
+  }
 
-      &.mat-column-cost-basis, &.mat-column-btc, &.mat-column-current-value {
-        text-align: right;
-      }
+  .mat-tab-group {
+    &:not(.btc-tabbed) {
+      display: none;
+    }
 
-      &.mat-column-change {
-        & > div {
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-end;
-          align-items: center;
-
-          .mat-icon {
-            margin-right: 4px;
-          }
-        }
+    &.btc-tabbed {
+      .mat-header-cell {
+        border-top: 1px solid gray;
       }
     }
   }
-}
 
-.mat-tab-group {
-  &:not(.btc-tabbed) {
-    display: none;
-  }
+  ::ng-deep {
+    .mat-column-header-holdings > label,
+    .mat-tab-label-content > label {
+      display: flex;
+      flex-display: row;
+      align-items: center;
+      cursor: pointer;
 
-  &.btc-tabbed {
-    .mat-header-cell {
-      border-top: 1px solid gray;
+      .mat-icon {
+        margin-left: 4px;
+        font-size: 18px;
+        height: unset;
+        width: unset;
+
+        &:hover {
+          color: #ff9900;
+        }
+      }
     }
   }
 }

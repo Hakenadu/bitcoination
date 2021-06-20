@@ -33,6 +33,7 @@ import {DonationsComponent} from './about/donations/donations.component';
 import {WorldMapComponent} from './about/world-map/world-map.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatCheckboxModule,
     MarkdownModule.forRoot(),
     ClipboardModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
