@@ -3,3 +3,9 @@
     padding: 0.5em !important;
   }
 }
+
+.dark-theme {
+  .mat-menu-content {
+    color: white;
+  }
+}
