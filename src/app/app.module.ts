@@ -34,6 +34,7 @@ import {WorldMapComponent} from './about/world-map/world-map.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MarkdownModule.forRoot(),
     ClipboardModule,
     MatSnackBarModule,
-    MatMenuModule
+    MatMenuModule,
+    OverlayModule
   ],
   providers: [],
   bootstrap: [AppComponent]

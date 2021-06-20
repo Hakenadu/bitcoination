@@ -18,6 +18,7 @@ import {MapChart, MapPolygon} from '@amcharts/amcharts4/maps';
 import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow';
 import {Nation, NationsService} from '../services/nations.service';
 import {map} from 'rxjs/operators';
+import {ConfigService} from '../../services/config.service';
 
 @Component({
   selector: 'btc-map-chart',
@@ -36,7 +37,14 @@ export class MapChartComponent implements AfterViewInit {
 
   constructor(@Inject(PLATFORM_ID) private platformId: any,
               private zone: NgZone,
-              private nationsService: NationsService) {
+              private nationsService: NationsService,
+              private configService: ConfigService) {
+    this.configService.showMinimap$.subscribe(showMinimap => {
+      if (!this.chart) {
+        return;
+      }
+      this.chart.smallMap.disabled = !showMinimap;
+    });
   }
 
   browserOnly(f: () => void): void {
@@ -80,7 +88,7 @@ export class MapChartComponent implements AfterViewInit {
       this.chart.smallMap.align = 'left';
       this.chart.smallMap.valign = 'top';
       this.chart.smallMap.marginTop = 14;
-      this.chart.smallMap.disabled = true;
+      this.chart.smallMap.disabled = !this.configService.showMinimap;
       this.chart.smallMap.stroke = am4core.color('gray');
       this.chart.smallMap.series.push(this.worldSeries);
 
@@ -161,7 +169,7 @@ export class MapChartComponent implements AfterViewInit {
 
   private addToggleSmallMapButton(chart: am4maps.MapChart): void {
     const toggleSmallMapButton = new am4core.Button();
-    toggleSmallMapButton.events.on('hit', () => chart.smallMap.disabled = !chart.smallMap.disabled);
+    toggleSmallMapButton.events.on('hit', () => this.configService.showMinimap = !this.configService.showMinimap);
     this.setButtonIconPath(toggleSmallMapButton, 'M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM10 5.47l4 1.4v11.66l-4-1.4V5.47zm-5 .99l3-1.01v11.7l-3 1.16V6.46zm14 11.08l-3 1.01V6.86l3-1.16v11.84z');
     toggleSmallMapButton.width = 30;
     toggleSmallMapButton.marginBottom = 3;

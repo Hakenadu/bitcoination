@@ -1,6 +1,7 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {ConfigService} from '../services/config.service';
 
 export interface NavigationEntry {
   name: string;
@@ -40,7 +41,8 @@ export class NavbarComponent {
   private navbarToggler: ElementRef<HTMLButtonElement> | undefined;
 
   constructor(private router: Router,
-              private matSnackbar: MatSnackBar) {
+              private matSnackbar: MatSnackBar,
+              public configService: ConfigService) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.hide();

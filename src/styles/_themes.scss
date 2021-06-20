@@ -1,0 +1,69 @@
+@import '~@angular/material/theming';
+
+@include mat-core();
+
+$bitcoination-primary: mat-palette((
+  50 : #fff3e0,
+  100 : #ffe0b3,
+  200 : #ffcc80,
+  300 : #ffb84d,
+  400 : #ffa826,
+  500 : #ff9900,
+  600 : #ff9100,
+  700 : #ff8600,
+  800 : #ff7c00,
+  900 : #ff6b00,
+  A100 : #ffffff,
+  A200 : #fff7f2,
+  A400 : #ffd6bf,
+  A700 : #ffc6a6,
+  contrast: (
+    50 : #000000,
+    100 : #000000,
+    200 : #000000,
+    300 : #000000,
+    400 : #000000,
+    500 : #000000,
+    600 : #000000,
+    700 : #000000,
+    800 : #000000,
+    900 : #000000,
+    A100 : #000000,
+    A200 : #000000,
+    A400 : #000000,
+    A700 : #000000,
+  )
+));
+$bitcoination-accent: mat-palette($mat-gray);
+$bitcoination-warn: mat-palette($mat-red);
+
+$bitcoination-light-theme: mat-light-theme((
+  color: (
+    primary: $bitcoination-primary,
+    accent: $bitcoination-accent,
+    warn: $bitcoination-warn,
+  )
+));
+$bitcoination-dark-theme: mat-dark-theme((
+  color: (
+    primary: $bitcoination-primary,
+    accent: $bitcoination-accent,
+    warn: $bitcoination-warn,
+  )
+));
+
+.light-theme {
+  @include angular-material-theme($bitcoination-light-theme);
+
+  .btc-content-area {
+    background-color: white;
+  }
+}
+
+.dark-theme {
+  @include angular-material-theme($bitcoination-dark-theme);
+
+  .btc-content-area {
+    background-color: #424242;
+  }
+}

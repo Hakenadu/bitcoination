@@ -1,5 +1,5 @@
 <btc-navbar></btc-navbar>
-<div class="h-100 pt-5" (mousedown)="navbar?.hide()">
+<div class="btc-content-area h-100 pt-5" (mousedown)="navbar?.hide()">
   <div class="h-100"
        [@routeAnimations]="prepareRoute(outlet)"
        (@routeAnimations.start)="startAnimation($event)"
