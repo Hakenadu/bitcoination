@@ -57,7 +57,7 @@ export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewIni
               private decimalPipe: DecimalPipe) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.breakpointObserver.observe([
       Breakpoints.XSmall,
       Breakpoints.Small,
@@ -73,12 +73,12 @@ export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewIni
     });
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     // TODO: Prüfen, warum dieser Timeout Hack hier notwendig ist -_-
     setTimeout(() => this.matTabGroup?.realignInkBar(), 2000);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.destroyed.next();
     this.destroyed.complete();
   }
@@ -171,11 +171,7 @@ export class StatisticsTableComponent implements OnInit, OnDestroy, AfterViewIni
     return this._tabbed;
   }
 
-  lol() {
-    alert('lol');
-  }
-
-  sourcesClicked($event: MouseEvent) {
-    $event.stopPropagation();
+  sourcesClicked($event: MouseEvent): void {
+    $event.stopImmediatePropagation();
   }
 }
