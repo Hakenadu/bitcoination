@@ -14,6 +14,15 @@
       W. I. P.
       <mat-icon class="ps-2">construction</mat-icon>
     </button>
+    <button class="btc-theme-toggle text-start ms-3 d-flex justify-content-center"
+            mat-icon-button
+            [ngClass]="{'btc-lightmode-button':configService.darkmode,'btc-darkmode-button':!configService.darkmode}"
+            (click)="configService.darkmode=!configService.darkmode"
+            [matTooltip]="configService.darkmode ? 'Enable Light Mode' : 'Enable Dark Mode'">
+      <mat-icon class="material-icons-outlined m-0">
+        {{configService.darkmode ? 'light_mode' : 'dark_mode'}}
+      </mat-icon>
+    </button>
   </div>
 
   <button #navbarToggleButton
@@ -38,15 +47,6 @@
         <mat-icon class="material-icons-outlined">{{navigationEntry.icon}}</mat-icon>
         {{navigationEntry.name}}
       </a>
-      <button class="btc-theme-toggle nav-item p-2 text-start ms-0 ms-md-2 mt-2 mt-md-0"
-              mat-flat-button
-              [ngClass]="{'btc-lightmode-button':configService.darkmode,'btc-darkmode-button':!configService.darkmode}"
-              (click)="configService.darkmode=!configService.darkmode">
-        <mat-icon class="material-icons-outlined">
-          {{configService.darkmode ? 'light_mode' : 'dark_mode'}}
-        </mat-icon>
-        {{configService.darkmode ? 'Enable Light Mode' : 'Enable Dark Mode'}}
-      </button>
     </ul>
   </div>
 
