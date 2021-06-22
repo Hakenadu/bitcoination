@@ -19,7 +19,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {PopupComponent} from './map/popup/popup.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatomoModule} from 'ngx-matomo';
 import {AboutComponent} from './about/about.component';
 import {StatisticsTableComponent} from './map/statistics/table/statistics-table.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -35,6 +34,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 import {OverlayModule} from '@angular/cdk/overlay';
+
+// import {MatomoModule} from 'ngx-matomo';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatTabsModule,
     NgbModule,
     HttpClientModule,
-    MatomoModule,
+    // MatomoModule,
     MatTooltipModule,
     ReactiveFormsModule,
     FormsModule,

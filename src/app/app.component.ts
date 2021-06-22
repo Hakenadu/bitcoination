@@ -1,12 +1,11 @@
 import {Component, HostBinding, ViewChild} from '@angular/core';
 import {NavbarComponent} from './navbar/navbar.component';
-import {MatomoTracker} from 'ngx-matomo';
-import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from '@angular/router';
-import {filter, map, switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
+import {Router, RouterOutlet} from '@angular/router';
 import {slideInAnimation} from './shared/animations';
 import {ConfigService} from './services/config.service';
 import {OverlayContainer} from '@angular/cdk/overlay';
+
+// import {MatomoTracker} from 'ngx-matomo';
 
 @Component({
   selector: 'btc-root',
@@ -23,29 +22,30 @@ export class AppComponent {
 
   constructor(private router: Router,
               private configService: ConfigService,
-              private overlayContainer: OverlayContainer,
-              activatedRoute: ActivatedRoute,
-              matomoTracker: MatomoTracker) {
+              private overlayContainer: OverlayContainer
+              // , activatedRoute: ActivatedRoute
+              // , matomoTracker: MatomoTracker
+  ) {
 
     this.updateTheme();
     this.configService.darkmode$.subscribe(darkmode => {
       this.updateTheme();
     });
 
-    router.events
-      .pipe(
-        filter(event => event instanceof NavigationEnd),
-        map(() => activatedRoute),
-        map(route => route.firstChild),
-        switchMap(route => route?.data ? route.data : of(null))
-      ).subscribe(data => {
-      if (!data) {
-        return;
-      }
-      if (data.name) {
-        matomoTracker.trackEvent('show-page', data.name);
-      }
-    });
+    // router.events
+    //  .pipe(
+    //    filter(event => event instanceof NavigationEnd),
+    //    map(() => activatedRoute),
+    //    map(route => route.firstChild),
+    //    switchMap(route => route?.data ? route.data : of(null))
+    //  ).subscribe(data => {
+    //  if (!data) {
+    //    return;
+    //  }
+    //  if (data.name) {
+    //    matomoTracker.trackEvent('show-page', data.name);
+    //  }
+    // });
   }
 
 
