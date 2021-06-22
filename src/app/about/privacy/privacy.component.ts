@@ -12,7 +12,8 @@ export class PrivacyComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    /*
     this.updateOptOut();
     this.optedIn.valueChanges.subscribe(value => {
       // @ts-ignore
@@ -24,15 +25,16 @@ export class PrivacyComponent implements OnInit {
         _paq.push(['optUserOut']);
       }
     });
+     */
   }
 
-  private updateOptOut() {
+  private updateOptOut(): void {
     const formControl = this.optedIn;
     const cdr = this.changeDetectorRef;
     // @ts-ignore
-    _paq.push([function () {
+    _paq.push([function() {
       // @ts-ignore
-      const userOptOut = !this.isUserOptedOut()
+      const userOptOut = !this.isUserOptedOut();
       formControl.setValue(userOptOut);
       cdr.detectChanges();
     }]);
