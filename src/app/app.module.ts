@@ -34,8 +34,12 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 import {OverlayModule} from '@angular/cdk/overlay';
-
-// import {MatomoModule} from 'ngx-matomo';
+import {PrivacyPolicyComponent} from './privacy-policy/privacy-policy.component';
+import {MatomoModule} from 'ngx-matomo';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {FooterComponent} from './footer/footer.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +55,10 @@ import {OverlayModule} from '@angular/cdk/overlay';
     BitcoinPricesComponent,
     BtcPricePreviewComponent,
     DonationsComponent,
-    WorldMapComponent
+    WorldMapComponent,
+    PrivacyPolicyComponent,
+    FooterComponent,
+    TermsOfServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +74,7 @@ import {OverlayModule} from '@angular/cdk/overlay';
     MatTabsModule,
     NgbModule,
     HttpClientModule,
-    // MatomoModule,
+    MatomoModule,
     MatTooltipModule,
     ReactiveFormsModule,
     FormsModule,
@@ -76,7 +83,9 @@ import {OverlayModule} from '@angular/cdk/overlay';
     ClipboardModule,
     MatSnackBarModule,
     MatMenuModule,
-    OverlayModule
+    OverlayModule,
+    MatExpansionModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

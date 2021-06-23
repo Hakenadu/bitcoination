@@ -1,0 +1,28 @@
+.btc-footer {
+  height: 40px;
+  font-size: 12px;
+
+  .btc-copyright {
+    overflow-x: auto;
+  }
+
+  .btc-links {
+    a {
+      &:not(:last-of-type) {
+        margin-right: 0.5em;
+      }
+    }
+  }
+
+  &.btc-footer-dark {
+    a {
+      color: white;
+    }
+  }
+
+  &.btc-footer-light {
+    a {
+      color: black;
+    }
+  }
+}
