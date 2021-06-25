@@ -1,7 +1,7 @@
-<mat-card class="btc-no-margin">
+<mat-card class="btc-no-margin h-100">
   <mat-card-header>
     <mat-icon mat-card-avatar>volunteer_activism</mat-icon>
-    <mat-card-title>Donate?</mat-card-title>
+    <mat-card-title>Donate Bitcoin?</mat-card-title>
   </mat-card-header>
   <mat-card-content>
     <p>
@@ -11,11 +11,13 @@
     </p>
     <p>
       Anyhow, if you (independently of any donations!) got ideas for fancy features for this page, please
-      <a href="mailto:hakenadu91@gmail.com">mail us</a>.
+      <a href="mailto:bitcoinations@protonmail.com">mail us</a>
+      or create an issue on <a href="https://github.com/Hakenadu/bitcoinations">GitHub</a>.
     </p>
     <div class="w-100 text-center pt-3">
+      <h2>BTC Wallet Address</h2>
       <img src="assets/images/donations.jpeg"
-           class="w-50 h-auto"
+           class="h-auto"
            [cdkCopyToClipboard]="donateId"
            (click)="showClipboardCopyText()"/>
       <div class="d-flex flex-row align-items-center justify-content-center pt-3">

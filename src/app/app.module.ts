@@ -19,7 +19,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import {PopupComponent} from './map/popup/popup.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import {MatomoModule} from 'ngx-matomo';
 import {AboutComponent} from './about/about.component';
 import {StatisticsTableComponent} from './map/statistics/table/statistics-table.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -35,6 +34,12 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatMenuModule} from '@angular/material/menu';
 import {OverlayModule} from '@angular/cdk/overlay';
+import {PrivacyPolicyComponent} from './privacy-policy/privacy-policy.component';
+import {MatomoModule} from 'ngx-matomo';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {FooterComponent} from './footer/footer.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +55,10 @@ import {OverlayModule} from '@angular/cdk/overlay';
     BitcoinPricesComponent,
     BtcPricePreviewComponent,
     DonationsComponent,
-    WorldMapComponent
+    WorldMapComponent,
+    PrivacyPolicyComponent,
+    FooterComponent,
+    TermsOfServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +83,9 @@ import {OverlayModule} from '@angular/cdk/overlay';
     ClipboardModule,
     MatSnackBarModule,
     MatMenuModule,
-    OverlayModule
+    OverlayModule,
+    MatExpansionModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

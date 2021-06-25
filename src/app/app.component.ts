@@ -1,17 +1,19 @@
-import {Component, HostBinding, ViewChild} from '@angular/core';
+import {Component, HostBinding, ViewChild, ViewEncapsulation} from '@angular/core';
 import {NavbarComponent} from './navbar/navbar.component';
-import {MatomoTracker} from 'ngx-matomo';
 import {ActivatedRoute, NavigationEnd, Router, RouterOutlet} from '@angular/router';
-import {filter, map, switchMap} from 'rxjs/operators';
-import {of} from 'rxjs';
 import {slideInAnimation} from './shared/animations';
 import {ConfigService} from './services/config.service';
 import {OverlayContainer} from '@angular/cdk/overlay';
+import {filter, map, switchMap} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {MatomoTracker} from 'ngx-matomo';
 
 @Component({
   selector: 'btc-root',
   templateUrl: './app.component.html',
-  animations: [slideInAnimation]
+  styleUrls: ['./app.component.scss'],
+  animations: [slideInAnimation],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent {
 
@@ -63,14 +65,20 @@ export class AppComponent {
   }
 
   private updateTheme(): void {
+    let classToAdd: string;
+    let classToRemove: string;
+
     if (this.configService.darkmode) {
-      this.overlayContainer.getContainerElement().classList.remove('light-theme');
-      this.overlayContainer.getContainerElement().classList.add('dark-theme');
-      this.componentCssClass = 'dark-theme';
+      classToAdd = 'dark-theme';
+      classToRemove = 'light-theme';
     } else {
-      this.overlayContainer.getContainerElement().classList.remove('dark-theme');
-      this.overlayContainer.getContainerElement().classList.add('light-theme');
-      this.componentCssClass = 'light-theme';
+      classToAdd = 'light-theme';
+      classToRemove = 'dark-theme';
     }
+
+    this.overlayContainer.getContainerElement().classList.remove(classToRemove);
+    this.overlayContainer.getContainerElement().classList.add(classToAdd);
+    document.body.classList.remove(classToRemove);
+    document.body.classList.add(classToAdd);
   }
 }

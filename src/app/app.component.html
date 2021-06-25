@@ -1,9 +1,12 @@
-<btc-navbar></btc-navbar>
-<div class="btc-content-area h-100 pt-5" (mousedown)="navbar?.hide()">
-  <div class="h-100"
-       [@routeAnimations]="prepareRoute(outlet)"
-       (@routeAnimations.start)="startAnimation($event)"
-       (@routeAnimations.done)="endAnimation($event)">
-    <router-outlet #outlet="outlet"></router-outlet>
+<div class="d-flex flex-column h-100">
+  <btc-navbar></btc-navbar>
+  <div class="btc-content-area flex-grow-1 pt-5" (mousedown)="navbar?.hide()">
+    <div class="h-100"
+         [@routeAnimations]="prepareRoute(outlet)"
+         (@routeAnimations.start)="startAnimation($event)"
+         (@routeAnimations.done)="endAnimation($event)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
   </div>
+  <btc-footer></btc-footer>
 </div>

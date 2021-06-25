@@ -8,12 +8,6 @@
   </a>
 
   <div class="flex-grow-1 d-flex justify-content-end pe-2">
-    <button mat-flat-button
-            color="primary"
-            (click)="showWipText()">
-      W. I. P.
-      <mat-icon class="ps-2">construction</mat-icon>
-    </button>
     <button class="btc-theme-toggle text-start ms-3 d-flex justify-content-center"
             mat-icon-button
             [ngClass]="{'btc-lightmode-button':configService.darkmode,'btc-darkmode-button':!configService.darkmode}"

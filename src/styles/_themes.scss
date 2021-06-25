@@ -52,18 +52,20 @@ $bitcoination-dark-theme: mat-dark-theme((
   )
 ));
 
-.light-theme {
-  @include angular-material-theme($bitcoination-light-theme);
+body {
+  &.dark-theme {
+    background-color: #424242;
+  }
 
-  .btc-content-area {
+  &.light-theme {
     background-color: white;
   }
 }
 
+.light-theme {
+  @include angular-material-theme($bitcoination-light-theme);
+}
+
 .dark-theme {
   @include angular-material-theme($bitcoination-dark-theme);
-
-  .btc-content-area {
-    background-color: #424242;
-  }
 }
