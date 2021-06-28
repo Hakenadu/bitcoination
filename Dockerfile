@@ -1,5 +1,6 @@
 ### STAGE 1: Build ###
 FROM node:14.17-alpine AS build
+ARG BUILD_TYPE=build-release
 WORKDIR /app
 
 COPY package.json ./
@@ -9,7 +10,7 @@ COPY e2e e2e
 COPY src src
 COPY angular.json .browserslistrc karma.conf.js tsconfig.app.json tsconfig.json tsconfig.spec.json tslint.json ./
 
-RUN npm run build
+RUN npm run $BUILD_TYPE
 
 ### STAGE 2: Run ###
 FROM nginx:1.17.1-alpine
