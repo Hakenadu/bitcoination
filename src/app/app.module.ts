@@ -40,6 +40,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {FooterComponent} from './footer/footer.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { DescriptionComponent } from './about/description/description.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.com
     WorldMapComponent,
     PrivacyPolicyComponent,
     FooterComponent,
-    TermsOfServiceComponent
+    TermsOfServiceComponent,
+    DescriptionComponent
   ],
   imports: [
     BrowserModule,
