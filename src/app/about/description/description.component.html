@@ -1,0 +1,16 @@
+<mat-card class="btc-no-margin">
+  <mat-card-header>
+    <mat-icon mat-card-avatar class="material-icons-outlined">bookmark_border</mat-icon>
+    <mat-card-title>About</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ng-container *ngIf="description">
+
+      <div [innerHTML]="markdownService.compile(description)">
+
+      </div>
+    </ng-container>
+
+
+  </mat-card-content>
+</mat-card>
