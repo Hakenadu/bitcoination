@@ -5,12 +5,7 @@
   </mat-card-header>
   <mat-card-content>
     <ng-container *ngIf="description">
-
-      <div [innerHTML]="markdownService.compile(description)">
-
-      </div>
+      <div [innerHTML]="markdownService.compile(description)"></div>
     </ng-container>
-
-
   </mat-card-content>
 </mat-card>

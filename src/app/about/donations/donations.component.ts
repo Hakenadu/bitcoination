@@ -7,7 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./donations.component.scss']
 })
 export class DonationsComponent {
-  donateId = '3GsQDugeJUTyKSShchiXqvrhLhR9Bituv6';
+  donateId = '3ENEWZMuBV3nqMrAebZpMoZhjmvCJt7ogV';
 
   constructor(private matSnackbar: MatSnackBar) {
   }
