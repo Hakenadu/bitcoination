@@ -14,20 +14,42 @@
       <a href="mailto:bitcoinations@protonmail.com">mail us</a>
       or create an issue on <a href="https://github.com/Hakenadu/bitcoinations">GitHub</a>.
     </p>
-    <div class="w-100 text-center pt-3">
-      <h2>BTC Wallet Address</h2>
-      <img src="assets/images/donations.png"
-           class="h-auto"
-           [cdkCopyToClipboard]="donateId"
-           (click)="showClipboardCopyText()"/>
-      <div class="d-flex flex-row align-items-center justify-content-center pt-3">
-        <span class="pr-2">{{donateId}}</span>
-        <button [cdkCopyToClipboard]="donateId"
-                mat-icon-button
-                class="text-center"
-                (click)="showClipboardCopyText()">
-          <mat-icon class="material-icons-outlined">content_copy</mat-icon>
-        </button>
+    <div class="row mt-3 justify-content-center">
+      <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+        <div class="w-100 text-center">
+          <h2>BTC Address</h2>
+          <img src="assets/images/donations-bitcoin.png"
+               class="h-auto"
+               [cdkCopyToClipboard]="donateBitcoin"
+               (click)="showClipboardCopyText('BTC Address')"/>
+          <div class="d-flex flex-row align-items-center justify-content-center pt-3">
+            <span class="wallet-address pr-2">{{donateBitcoin}}</span>
+            <button [cdkCopyToClipboard]="donateBitcoin"
+                    mat-icon-button
+                    class="text-center"
+                    (click)="showClipboardCopyText('BTC Address')">
+              <mat-icon class="material-icons-outlined">content_copy</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-8 col-lg-7 mt-3">
+        <div class="w-100 text-center">
+          <h2>Liquid Address</h2>
+          <img src="assets/images/donations-liquid.png"
+               class="h-auto"
+               [cdkCopyToClipboard]="donateLiquid"
+               (click)="showClipboardCopyText('Liquid Address')"/>
+          <div class="d-flex flex-row align-items-center justify-content-center pt-3">
+            <span class="wallet-address pr-2">{{donateLiquid}}</span>
+            <button [cdkCopyToClipboard]="donateLiquid"
+                    mat-icon-button
+                    class="text-center"
+                    (click)="showClipboardCopyText('Liquid Address')">
+              <mat-icon class="material-icons-outlined">content_copy</mat-icon>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </mat-card-content>

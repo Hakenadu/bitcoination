@@ -1,5 +1,5 @@
 img {
-  width: 40% !important;
+  width: 80% !important;
   transition: transform 200ms ease-in-out;
 
   &:hover {
@@ -9,4 +9,8 @@ img {
   &:active {
     transform: scaleX(0.95) scaleY(0.95);
   }
+}
+
+.wallet-address {
+  overflow-wrap: anywhere;
 }
